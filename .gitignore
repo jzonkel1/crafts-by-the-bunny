@@ -1,2 +1,4 @@
 research/
 *.png
+mockups/*/shots/
+mockups/art/catalog.json

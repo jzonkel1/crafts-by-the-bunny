@@ -1,0 +1,1146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crafts by the Bunny | Mockup: Studio Carousel</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Giclee prints of one-of-a-kind mixed-media paintings by Shai Davenport, plus hand-beaded sun catchers. Made in Corpus Christi, Texas.">
+<meta name="theme-color" content="#a9452b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Shrikhand&display=block" rel="stylesheet">
+<link rel="preload" as="image" href="../art/love-runs-toward-the-broken-800.jpg" fetchpriority="high">
+<style>
+:root{
+  --bg:#a9452b;
+  --glow:#f2c48c;
+  --deep:color-mix(in oklab, var(--bg) 60%, #12080f);
+  --edge:color-mix(in oklab, var(--bg) 42%, #0c0509);
+  --cream:#fff7ea;
+  --band:#fbf3e6;
+  --line:rgb(255 247 234 / .3);
+  --display:'Shrikhand', Georgia, serif;
+  --body:'DM Sans', system-ui, sans-serif;
+  --gut:clamp(20px, 5vw, 64px);
+  --max:1240px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--cream);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:40;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:400}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--cream);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:calc(var(--max) + 2*var(--gut));margin-inline:auto;padding-inline:var(--gut)}
+.kicker{font:600 13px/1.3 var(--body);letter-spacing:.16em;text-transform:uppercase}
+.h2{font-family:var(--display);font-size:clamp(2.3rem, 4.6vw, 3.9rem);line-height:1.04;letter-spacing:.005em;text-wrap:balance}
+.lead{font-size:clamp(17px, 1.35vw, 19px);line-height:1.6;max-width:56ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;min-height:52px;padding:0 30px;border-radius:999px;font:600 16px/1 var(--body);letter-spacing:.01em;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .25s ease, background-color .25s ease, color .25s ease;white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-solid{background:var(--cream);color:var(--deep)}
+.btn-solid:hover{transform:translateY(-2px)}
+.btn-line{border-color:var(--cream);color:var(--cream);background:transparent}
+.btn-line:hover{background:rgb(255 247 234 / .12)}
+.btn-ink{background:var(--deep);color:var(--cream)}
+.btn-ink:hover{transform:translateY(-2px)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+.tlink{font-weight:600;text-decoration:underline;text-decoration-color:var(--glow);text-decoration-thickness:2px;text-underline-offset:5px;transition:text-underline-offset .2s}
+.tlink:hover{text-underline-offset:8px}
+
+/* nav */
+.nav{position:absolute;inset:0 0 auto 0;z-index:5;height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding-inline:clamp(16px, 3.4vw, 48px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:600;font-size:16px;letter-spacing:.01em}
+.brand img{width:40px;height:40px;border-radius:50%;border:2px solid var(--cream);object-fit:cover}
+.nav-links{display:flex;gap:30px;font-size:15px;font-weight:500}
+.nav-links a{text-decoration:none;opacity:.92}
+.nav-links a:hover{text-decoration:underline;text-decoration-color:var(--glow);text-underline-offset:6px;text-decoration-thickness:2px}
+.nav .btn{min-height:42px;padding:0 20px;font-size:15px}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;overflow:clip;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 55% 48% at 50% 60%, color-mix(in oklab, var(--glow) 22%, transparent), transparent 70%)}
+#ring{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;opacity:0;transition:opacity .9s ease;touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
+.hero.is-3d #ring{opacity:1}
+.hero.grabbing #ring{cursor:grabbing}
+.hero-inner{position:relative;z-index:1;flex:1;display:grid;grid-template-rows:auto auto minmax(300px,1fr) auto;grid-template-areas:"head" "ctas" "stage" "now";justify-items:center;text-align:center;padding:96px var(--gut) 34px;pointer-events:none}
+.hero-inner a,.hero-inner button{pointer-events:auto}
+.hero-head{grid-area:head}
+.hero h1{font-family:var(--display);font-size:clamp(2.9rem, min(6.6vw, 11svh), 6.3rem);line-height:1.02;letter-spacing:.005em;text-shadow:0 2px 0 rgb(0 0 0 / .12)}
+.hero h1 .l{display:inline}
+.lede{margin:14px auto 0;max-width:46ch;font-size:clamp(16px, 1.3vw, 19px);line-height:1.55}
+.lede strong{font-weight:600}
+.hero-ctas{grid-area:ctas;margin-top:22px;justify-content:center}
+.stage{grid-area:stage;position:relative;width:100%;align-self:stretch;outline-offset:-6px;pointer-events:none}
+.hero.is-static .stage{pointer-events:auto;touch-action:pan-y}
+.still{position:absolute;inset:0;margin:0;transition:opacity .7s ease}
+.hero.is-3d .still{opacity:0;visibility:hidden;transition:opacity .7s ease, visibility 0s .7s}
+.still .art-box{position:absolute;left:50%;top:6%;height:88%;width:auto;max-width:86%;transform:translateX(-50%);box-shadow:9px 9px 0 var(--edge)}
+.now{grid-area:now;display:flex;align-items:center;justify-content:center;gap:clamp(12px, 2.4vw, 28px);margin-top:6px;width:100%;max-width:720px}
+.now-text{min-width:0;flex:1}
+.now-title{font-family:var(--display);font-size:clamp(1.35rem, 2.1vw, 1.85rem);line-height:1.15;text-wrap:balance;min-height:1.15em}
+.now-meta{margin-top:6px;font-size:15px;display:flex;flex-wrap:wrap;justify-content:center;column-gap:14px;row-gap:2px}
+.now-meta .dot{opacity:.6}
+.arrow{flex:none;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--cream);background:transparent;display:grid;place-items:center;cursor:pointer;transition:background-color .2s, transform .2s}
+.arrow:hover{background:rgb(255 247 234 / .14)}
+.arrow:active{transform:scale(.94)}
+.arrow svg{width:20px;height:20px}
+.fade-swap{animation:swap .5s ease both}
+@keyframes swap{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.intro > *{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.intro > :nth-child(2){animation-delay:.08s}
+.intro > :nth-child(3){animation-delay:.16s}
+.intro > :nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* art boxes (true aspect, optional crop) */
+.art-box{position:relative;display:block;overflow:hidden;aspect-ratio:var(--ar, .8);background:var(--edge)}
+.art-box > img{width:100%;height:100%;object-fit:cover}
+.art-box.crop > img{position:absolute;max-width:none;width:calc(100% / var(--cw));height:auto;left:calc(var(--cx) / var(--cw) * -100%);top:calc(var(--cy) / var(--ch) * -100%)}
+
+/* sections */
+section{scroll-margin-top:12px}
+.sec{padding-block:clamp(72px, 9vw, 128px)}
+.sec-head{display:grid;grid-template-columns:1.1fr 1fr;gap:28px 64px;align-items:end;margin-bottom:clamp(36px, 5vw, 64px)}
+.sec-head .kicker{margin-bottom:14px}
+
+/* prints */
+.prints-grid{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:56px clamp(20px, 2.6vw, 40px)}
+.card{display:flex;flex-direction:column;min-width:0}
+.card-art{display:flex;align-items:flex-end;justify-content:center;aspect-ratio:4/5;padding:0 8px 8px 0;border:0;background:none;cursor:zoom-in;margin-bottom:18px}
+.card-art .art-box{width:min(100%, calc(100% * var(--ar) / .8));box-shadow:7px 7px 0 var(--edge);transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s cubic-bezier(.2,.7,.2,1)}
+.card-art:hover .art-box,.card-art:focus-visible .art-box{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--edge)}
+.card h3{font:600 18px/1.3 var(--body);letter-spacing:.005em}
+.card-meta{font-size:15px;margin-top:4px;opacity:.88}
+.card-price{font-size:15px;margin-top:2px;font-weight:600}
+.card .tlink{margin-top:10px;align-self:flex-start;font-size:15px}
+.prints-foot{display:flex;justify-content:center;margin-top:clamp(48px, 6vw, 72px)}
+
+/* how prints work (cream band) */
+.band{background:var(--band);color:var(--deep)}
+.band .kicker{color:var(--deep)}
+.how{padding-block:clamp(64px, 7vw, 96px)}
+.how-grid{display:grid;grid-template-columns:1.15fr 1fr .8fr;gap:clamp(32px, 5vw, 72px);align-items:start}
+.hair{border-top:1.5px solid currentColor}
+.hair li{border-bottom:1px solid color-mix(in oklab, currentColor 28%, transparent);padding:14px 0}
+.facts{margin-top:28px}
+.facts strong{display:block;font-weight:600;font-size:17px}
+.facts span{font-size:16px;opacity:.86}
+.how .h2{font-size:clamp(2.1rem, 3.8vw, 3.2rem)}
+.price-table{width:100%;border-collapse:collapse;font-size:17px;border-top:1.5px solid currentColor}
+.price-table th{font:600 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;text-align:left;padding:14px 0 12px}
+.price-table th:last-child,.price-table td:last-child{text-align:right}
+.price-table td{padding:12px 0;border-top:1px solid color-mix(in oklab, currentColor 28%, transparent);font-variant-numeric:tabular-nums}
+.price-table tbody tr{cursor:default;transition:background-color .2s}
+.price-table tbody tr.on td{color:var(--bg);font-weight:600}
+.price-note{font-size:15px;margin-top:16px;line-height:1.55}
+.ladder{margin:0;align-self:end}
+.ladder svg{width:100%;max-width:260px;height:auto;display:block;margin-left:auto;overflow:visible}
+.ladder rect{fill:transparent;stroke:color-mix(in oklab, var(--deep) 45%, transparent);stroke-width:2.2;transition:fill .25s, stroke .25s}
+.ladder rect.on{fill:color-mix(in oklab, var(--bg) 18%, transparent);stroke:var(--bg);stroke-width:3.2}
+.ladder text{font:600 19px var(--body);fill:color-mix(in oklab, var(--deep) 70%, transparent)}
+.ladder figcaption{font-size:14px;margin-top:12px;text-align:right;opacity:.8}
+
+/* sun catchers */
+.sc-head{display:grid;grid-template-columns:1.2fr 1fr;gap:32px 72px;align-items:start}
+.sc-head .h2{margin-top:14px}
+.sc-head .lead{margin-top:22px}
+.sc-price{display:grid;grid-template-columns:auto 1fr;align-items:end;column-gap:18px}
+.sc-price .big{font-family:var(--display);font-size:clamp(3.4rem, 6vw, 5rem);line-height:.9}
+.sc-price .from{font-weight:600;font-size:15px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:10px}
+.sc-price .base{grid-column:1/-1;margin-top:10px;font-size:16px}
+.addons{margin-top:22px;border-top:1.5px solid var(--cream)}
+.addons li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:16px}
+.addons li span:last-child{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sc-small{font-size:15px;margin-top:14px;opacity:.9}
+.sc-head .btn-row{margin-top:26px}
+.hang{display:flex;gap:clamp(16px, 2.2vw, 32px);padding-top:84px;margin-top:clamp(40px, 5vw, 64px);align-items:flex-start}
+.hang figure{flex:1 1 0;min-width:0;margin:0;margin-top:var(--drop);position:relative}
+.hang figure::before{content:"";position:absolute;left:50%;bottom:100%;width:1.5px;height:calc(var(--drop) + 84px);background:linear-gradient(to bottom, transparent, rgb(255 247 234 / .55) 40%);transform:translateX(-50%)}
+.hang figure::after{content:"";position:absolute;left:50%;top:-7px;width:13px;height:13px;border-radius:50%;background:var(--glow);transform:translateX(-50%);box-shadow:inset -2px -3px 0 rgb(0 0 0 / .18)}
+.hang img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px}
+
+/* about */
+.about{background:var(--deep)}
+.about-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(36px, 6vw, 96px);align-items:center}
+.about-photo{margin:0;position:relative}
+.about-photo img{width:100%;aspect-ratio:1;object-fit:cover;box-shadow:12px 12px 0 var(--bg)}
+.about .h2 .say{display:block;font:500 17px/1.4 var(--body);letter-spacing:.01em;margin-top:12px;opacity:.9}
+.about-copy p{margin-top:18px;max-width:58ch}
+.about-copy p:first-of-type{margin-top:24px}
+.list-title{font:600 13px/1.3 var(--body);letter-spacing:.16em;text-transform:uppercase;margin-top:36px}
+.creds{margin-top:12px;border-top:1.5px solid var(--cream)}
+.creds li{padding:12px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.45}
+
+/* event */
+.event{padding-block:clamp(64px, 8vw, 112px)}
+.event-grid{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,.62fr);gap:clamp(28px, 5vw, 72px);align-items:center}
+.date{display:grid;justify-items:center;color:var(--bg);line-height:.86;text-align:center}
+.date .mon{font-family:var(--display);font-size:clamp(2.2rem, 4vw, 3.4rem)}
+.date .day{font-family:var(--display);font-size:clamp(7rem, 15vw, 12rem);line-height:.9}
+.date .yr{font:600 14px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--deep);margin-top:6px}
+.event .h2{margin-top:12px}
+.event-copy > p{margin-top:16px;max-width:48ch}
+.event-list{margin-top:22px}
+.event-list li{display:flex;gap:14px;align-items:baseline}
+.event-list b{font-weight:600;min-width:64px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.event-copy .btn-row{margin-top:26px}
+.event-photo{margin:0}
+.event-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;box-shadow:10px 10px 0 var(--bg)}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px, 6vw, 96px);align-items:start}
+.contact .h2{margin-top:14px}
+.contact .lead{margin-top:20px}
+.contact .btn-row{margin-top:30px}
+.form{display:grid;gap:18px;background:var(--deep);padding:clamp(22px, 3vw, 36px);border-radius:14px}
+.form label{display:grid;gap:7px;font-weight:600;font-size:15px}
+.form input,.form textarea{font:400 16px/1.4 var(--body);color:var(--cream);background:rgb(255 247 234 / .07);border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;width:100%}
+.form textarea{min-height:120px;resize:vertical}
+.form input:focus,.form textarea:focus{outline:none;border-color:var(--cream);background:rgb(255 247 234 / .11)}
+.form ::placeholder{color:rgb(255 247 234 / .62)}
+.form .btn{justify-self:start}
+.form-status{font-size:15px;line-height:1.55;padding:14px 16px;border-radius:10px;background:rgb(255 247 234 / .1);border:1px solid var(--line)}
+
+/* footer */
+.foot{background:var(--deep);padding-block:56px 40px;font-size:15px}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px}
+.foot .brand span{font-family:var(--display);font-size:22px;font-weight:400}
+.foot-links{display:flex;flex-wrap:wrap;gap:22px}
+.foot-links a{text-decoration:none}
+.foot-links a:hover{text-decoration:underline;text-underline-offset:5px}
+.foot-small{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;opacity:.85;font-size:14px}
+
+/* lightbox */
+.lb{border:0;padding:0;max-width:min(1100px, calc(100vw - 32px));width:100%;max-height:calc(100svh - 32px);background:var(--lbbg, var(--deep));color:var(--cream);border-radius:16px;overflow:auto}
+.lb::backdrop{background:rgb(10 5 8 / .72)}
+.lb-inner{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:32px;padding:28px;align-items:center}
+.lb-art{display:flex;justify-content:center;align-items:center}
+.lb-art .art-box{width:min(100%, calc(min(74svh, 760px) * var(--ar)));height:auto;box-shadow:9px 9px 0 color-mix(in oklab, var(--lbbg, var(--bg)) 42%, #0c0509)}
+.lb-title{font-family:var(--display);font-size:clamp(1.6rem, 2.6vw, 2.3rem);line-height:1.1}
+.lb-meta{margin-top:10px;font-size:16px}
+.lb-blurb{margin-top:14px;font-size:16px;opacity:.92}
+.lb-price{margin-top:16px;font-weight:600}
+.lb .btn-row{margin-top:22px}
+.lb-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--cream);background:rgb(0 0 0 / .18);display:grid;place-items:center;cursor:pointer}
+.lb-close svg{width:18px;height:18px}
+
+/* tablet */
+@media (max-width:1023px){
+  .nav-links{display:none}
+  .prints-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .how-grid{grid-template-columns:1fr 1fr}
+  .ladder{grid-column:2}
+  .event-grid{grid-template-columns:auto 1fr}
+  .event-photo{grid-column:1/-1;max-width:520px}
+}
+
+/* phones */
+@media (max-width:700px){
+  body{font-size:16px}
+  .nav{height:68px}
+  .brand img{width:36px;height:36px}
+  .nav .btn{display:none}
+  .hero-inner{grid-template-rows:auto minmax(300px,1fr) auto auto;grid-template-areas:"head" "stage" "now" "ctas";padding:80px 16px 28px}
+  .hero h1{font-size:clamp(2.75rem, 12.6vw, 3.4rem);line-height:1.04}
+  .hero h1 .l{display:block}
+  .lede{font-size:16px;margin-top:12px;max-width:34ch}
+  .hero-ctas{margin-top:20px}
+  .now{gap:10px;margin-top:4px}
+  .now-title{font-size:1.3rem;min-height:2.3em;display:flex;align-items:center;justify-content:center}
+  .now-meta{font-size:14px}
+  .arrow{width:44px;height:44px}
+  .btn-row{flex-direction:column;width:100%;max-width:400px;margin-inline:auto}
+  .btn-row .btn{width:100%}
+  .sec-head{grid-template-columns:1fr;gap:16px}
+  .prints-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);padding-bottom:10px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .prints-grid::-webkit-scrollbar{display:none}
+  .card{flex:0 0 76%;scroll-snap-align:start}
+  .how-grid{grid-template-columns:1fr}
+  .how-prices{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:20px;align-items:end}
+  .how-prices .price-note{grid-column:1/-1}
+  .ladder{grid-column:auto}
+  .ladder figcaption{display:none}
+  .sc-head{grid-template-columns:1fr}
+  .hang{overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);padding-bottom:10px;scrollbar-width:none;gap:16px}
+  .hang::-webkit-scrollbar{display:none}
+  .hang figure{flex:0 0 62%;scroll-snap-align:start;margin-top:calc(var(--drop) * .4)}
+  .hang figure::before{height:calc(var(--drop) * .4 + 84px)}
+  .about-grid{grid-template-columns:1fr}
+  .about-photo{max-width:440px}
+  .event-grid{grid-template-columns:1fr;justify-items:start}
+  .date{grid-auto-flow:column;align-items:baseline;gap:14px;justify-items:start}
+  .date .day{font-size:6.2rem}
+  .date .yr{align-self:center}
+  .contact-grid{grid-template-columns:1fr}
+  .form .btn{justify-self:stretch}
+  .foot-grid{flex-direction:column;align-items:flex-start}
+  .lb-inner{grid-template-columns:1fr;padding:56px 18px 22px;gap:20px}
+  .lb-art .art-box{height:auto;width:min(100%, calc(56svh * var(--ar)))}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="hero" aria-label="Crafts by the Bunny">
+  <header class="nav">
+    <a class="brand" href="#hero"><img src="../art/logo-150.jpg" width="150" height="150" alt=""><span>Shai Davenport</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#prints">Prints</a>
+      <a href="#suncatchers">Sun catchers</a>
+      <a href="#about">About</a>
+      <a href="#event">Events</a>
+      <a href="#contact">Commissions</a>
+    </nav>
+    <a class="btn btn-line" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
+  </header>
+
+  <canvas id="ring" aria-hidden="true"></canvas>
+
+  <div class="hero-inner">
+    <div class="hero-head intro">
+      <h1><span class="l">Crafts by </span><span class="l">the Bunny</span></h1>
+      <p class="lede">Prints of one-of-a-kind mixed-media paintings by <strong>Shai Davenport</strong>, made in Corpus Christi, Texas.</p>
+    </div>
+
+    <div class="btn-row hero-ctas intro">
+      <a class="btn btn-solid" href="#prints">Shop prints</a>
+      <a class="btn btn-line" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
+    </div>
+
+    <div class="stage" id="stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Paintings by Shai. Use the left and right arrow keys or the buttons below to turn the ring.">
+      <figure class="still" id="still">
+        <span class="art-box crop" id="stillBox" style="--ar:.79;--cx:.047;--cy:.0675;--cw:.926;--ch:.8785">
+          <img id="stillImg" src="../art/love-runs-toward-the-broken-800.jpg" width="600" height="800" alt="Love Runs Toward the Broken, mixed-media painting by Shai Davenport" fetchpriority="high">
+        </span>
+      </figure>
+    </div>
+
+    <div class="now">
+      <button class="arrow" id="prev" type="button" aria-label="Previous painting"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="now-text" id="nowText">
+        <h2 class="now-title" id="nowTitle">Love Runs Toward the Broken</h2>
+        <p class="now-meta" id="nowMeta"><span>2026</span><span class="dot" aria-hidden="true">·</span><span>Prints from $14</span><span class="dot" aria-hidden="true">·</span><a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a></p>
+      </div>
+      <button class="arrow" id="next" type="button" aria-label="Next painting"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="sec" id="prints" aria-labelledby="prints-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Prints</p>
+        <h2 class="h2" id="prints-h">Take a painting home</h2>
+      </div>
+      <p class="lead">Every painting starts as a one-of-a-kind original. Giclee prints let you hang the same color and detail on your own wall, sized to fit.</p>
+    </div>
+
+    <div class="prints-grid">
+      <article class="card">
+        <button class="card-art" type="button" data-slug="love-runs-toward-the-broken" data-title="Love Runs Toward the Broken" data-year="2026" data-price="14" data-bg="#a9452b" data-ar=".79" data-crop=".047,.0675,.926,.8785" data-blurb="Mixed media: acrylic, beads, feathers, charms and collage on canvas. Paired with a poem." aria-label="View Love Runs Toward the Broken larger">
+          <span class="art-box crop" style="--ar:.79;--cx:.047;--cy:.0675;--cw:.926;--ch:.8785"><img src="../art/love-runs-toward-the-broken-800.jpg" width="600" height="800" loading="lazy" alt="Love Runs Toward the Broken, mixed-media painting with beads, feathers and charms"></span>
+        </button>
+        <h3>Love Runs Toward the Broken</h3>
+        <p class="card-meta">2026</p>
+        <p class="card-price">Prints from $14</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="mother-maiden-and-sons" data-title="Mother, Maiden &amp; Sons" data-year="2025" data-price="27" data-bg="#a53f37" data-ar="1.238" data-blurb="Painted as a meditation on healing her inner child so she could be the mother she wanted to be." aria-label="View Mother, Maiden and Sons larger">
+          <span class="art-box" style="--ar:1.238"><img src="../art/mother-maiden-and-sons-800.jpg" width="800" height="646" loading="lazy" alt="Mother, Maiden and Sons, painting of planets, flowers and a hand reaching through a red pyramid"></span>
+        </button>
+        <h3>Mother, Maiden &amp; Sons</h3>
+        <p class="card-meta">2025</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="holy-diver" data-title="Holy Diver" data-year="2024" data-price="27" data-bg="#0f6f91" data-ar=".8" data-blurb="Painted to honor her second son, after the song he always asked for." aria-label="View Holy Diver larger">
+          <span class="art-box" style="--ar:.8"><img src="../art/holy-diver-800.jpg" width="640" height="800" loading="lazy" alt="Holy Diver, underwater painting with a rainbow ribbon, a tiger and a glowing heart"></span>
+        </button>
+        <h3>Holy Diver</h3>
+        <p class="card-meta">2024</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="aries" data-title="Aries" data-year="2024" data-price="27" data-bg="#8f1a3a" data-ar=".8" data-blurb="Zodiac Fairies, the second piece in the series." aria-label="View Aries larger">
+          <span class="art-box" style="--ar:.8"><img src="../art/aries-800.jpg" width="640" height="800" loading="lazy" alt="Aries, painting of a lava lamp volcano between two fairies"></span>
+        </button>
+        <h3>Aries</h3>
+        <p class="card-meta">2024</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="pisces" data-title="Pisces" data-year="2023" data-price="27" data-bg="#7a3589" data-ar=".8" data-blurb="Part of her Zodiac Fairies series, inspired by women in her life." aria-label="View Pisces larger">
+          <span class="art-box" style="--ar:.8"><img src="../art/pisces-800.jpg" width="640" height="800" loading="lazy" alt="Pisces, a mermaid fairy on a dock under a blue planet"></span>
+        </button>
+        <h3>Pisces</h3>
+        <p class="card-meta">2023</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="life-of-venus" data-title="Life of Venus" data-year="2022" data-price="27" data-bg="#16708f" data-ar=".8" data-blurb="Her first attempt at the human body, inspired by the first intuitive necklace she made." aria-label="View Life of Venus larger">
+          <span class="art-box" style="--ar:.8"><img src="../art/life-of-venus-800.jpg" width="640" height="800" loading="lazy" alt="Life of Venus, a woman rising from a pink shell beneath a crane with open wings"></span>
+        </button>
+        <h3>Life of Venus</h3>
+        <p class="card-meta">2022</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="the-dream-messenger" data-title="The Dream Messenger" data-year="2021" data-note="Original sold. Prints available." data-price="27" data-bg="#0b7369" data-ar=".8" data-blurb="Based on a dream about an owl, a 63-floor building and a girl who was not what she seemed." aria-label="View The Dream Messenger larger">
+          <span class="art-box" style="--ar:.8"><img src="../art/the-dream-messenger-800.jpg" width="640" height="800" loading="lazy" alt="The Dream Messenger, a turquoise owl with a heart and an eye on its chest"></span>
+        </button>
+        <h3>The Dream Messenger</h3>
+        <p class="card-meta">2021 · Original sold</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+      <article class="card">
+        <button class="card-art" type="button" data-slug="the-biggest-hearts" data-title="The Biggest Hearts Carry the Heaviest Burdens" data-year="2020" data-price="27" data-bg="#b01c1e" data-ar=".838" data-blurb="Her first true painting, the one that showed her what she was capable of." aria-label="View The Biggest Hearts Carry the Heaviest Burdens larger">
+          <span class="art-box" style="--ar:.838"><img src="../art/the-biggest-hearts-800.jpg" width="671" height="800" loading="lazy" alt="The Biggest Hearts Carry the Heaviest Burdens, a haloed red heart crying into a pool"></span>
+        </button>
+        <h3>The Biggest Hearts Carry the Heaviest Burdens</h3>
+        <p class="card-meta">2020</p>
+        <p class="card-price">Prints from $27</p>
+        <a class="tlink" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+      </article>
+    </div>
+
+    <div class="prints-foot btn-row">
+      <a class="btn btn-solid" href="#prints">See all prints</a>
+    </div>
+  </div>
+</section>
+
+<section class="band how" id="how" aria-labelledby="how-h">
+  <div class="wrap how-grid">
+    <div>
+      <p class="kicker">How prints work</p>
+      <h2 class="h2" id="how-h" style="margin-top:14px">Printed with care, priced by size</h2>
+      <ul class="facts hair">
+        <li><strong>Giclee prints</strong><span>Made with pigment inks, true to the original's color.</span></li>
+        <li><strong>100% cotton paper</strong><span>Every print is on 100% cotton paper.</span></li>
+        <li><strong>Sized to the painting</strong><span>Sizes follow each painting's shape. Prints from $14, plus shipping.</span></li>
+      </ul>
+    </div>
+    <div class="how-prices">
+      <table class="price-table" id="priceTable">
+        <thead><tr><th scope="col">Size (in)</th><th scope="col">Price</th></tr></thead>
+        <tbody>
+          <tr data-size="5x7"><td>5 × 7</td><td>$14</td></tr>
+          <tr data-size="8x10"><td>8 × 10</td><td>$27</td></tr>
+          <tr data-size="11x14"><td>11 × 14</td><td>$51</td></tr>
+          <tr data-size="16x20"><td>16 × 20</td><td>$90</td></tr>
+          <tr data-size="24x36"><td>24 × 36</td><td>$238</td></tr>
+          <tr data-size="40x60"><td>40 × 60</td><td>$660</td></tr>
+        </tbody>
+      </table>
+      <figure class="ladder" aria-hidden="true">
+        <svg viewBox="0 0 412 612" id="ladder">
+          <rect data-size="40x60" x="4" y="8" width="400" height="600"/>
+          <rect data-size="24x36" x="4" y="248" width="240" height="360"/>
+          <rect data-size="16x20" x="4" y="408" width="160" height="200"/>
+          <rect data-size="11x14" x="4" y="468" width="110" height="140"/>
+          <rect data-size="8x10" x="4" y="508" width="80" height="100"/>
+          <rect data-size="5x7" x="4" y="538" width="50" height="70"/>
+          <text x="394" y="34" text-anchor="end">40×60</text>
+          <text x="234" y="274" text-anchor="end">24×36</text>
+          <text x="154" y="434" text-anchor="end">16×20</text>
+        </svg>
+      </figure>
+      <p class="price-note">A few of the sizes, drawn to scale. Plus shipping. Ask Shai which sizes fit the painting you love.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="suncatchers" aria-labelledby="sc-h">
+  <div class="wrap">
+    <div class="sc-head">
+      <div>
+        <p class="kicker">Sun catchers</p>
+        <h2 class="h2" id="sc-h">Little rainbows, beaded by hand</h2>
+        <p class="lead">Hand-beaded strands of crystals, glass beads and charms. Hang one in a sunny window and the room fills with tiny rainbows. Each one is a one-off, and custom orders are welcome.</p>
+        <div class="btn-row">
+          <a class="btn btn-solid" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Ask for a custom one</a>
+        </div>
+      </div>
+      <div>
+        <div class="sc-price">
+          <span class="big">$15</span><span class="from">Starts at</span>
+          <span class="base">7 inch circular reflective pendant</span>
+        </div>
+        <ul class="addons" aria-label="Add-ons">
+          <li><span>Colorful diamond-shape pendant</span><span>+$5</span></li>
+          <li><span>Custom color circle</span><span>+$5</span></li>
+          <li><span>Custom circle with a hand-painted image</span><span>+$10</span></li>
+          <li><span>Every added inch</span><span>+$2</span></li>
+          <li><span>Crystal or stone bead request</span><span>+$2</span></li>
+        </ul>
+        <p class="sc-small">Plus shipping.</p>
+      </div>
+    </div>
+
+    <div class="hang">
+      <figure style="--drop:0px"><img src="../art/sc-butterfly-800.jpg" width="600" height="800" loading="lazy" alt="Sun catcher with a rainbow metal butterfly and a crystal drop"></figure>
+      <figure style="--drop:64px"><img src="../art/sc-mushroom-800.jpg" width="640" height="800" loading="lazy" alt="Hand-painted mushroom sun catchers on beaded strands"></figure>
+      <figure style="--drop:22px"><img src="../art/sc-tree-of-life-800.jpg" width="640" height="800" loading="lazy" alt="Tree of life sun catcher in greens hanging by a window"></figure>
+      <figure style="--drop:88px"><img src="../art/sc-rainbow-crystal-800.jpg" width="800" height="800" loading="lazy" alt="Rainbow beaded strand with butterfly charms and a crystal pyramid"></figure>
+      <figure style="--drop:36px"><img src="../art/sc-daisy-frame-800.jpg" width="687" height="800" loading="lazy" alt="Daisy in a tiny gold frame on a beaded strand with an anchor charm"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec about" id="about" aria-labelledby="about-h">
+  <div class="wrap about-grid">
+    <figure class="about-photo">
+      <img src="../art/shai-white-dress-paintings-800.jpg" width="800" height="800" loading="lazy" alt="Shai in a white dress and bunny ears, singing beside a fence hung with her paintings">
+    </figure>
+    <div class="about-copy">
+      <p class="kicker">About the artist</p>
+      <h2 class="h2" id="about-h" style="margin-top:14px">Hi, I'm Shai.<span class="say">Say it like “Sh-AYYY.”</span></h2>
+      <p>I'm a mixed-media artist in Corpus Christi. A painting starts in acrylic, then it keeps growing: beads, feathers, charms, collage, gold-outlined shapes. You'll find a lot of eyes, suns, oceans and flower-of-life patterns in my work.</p>
+      <p>My paintings carry real stories about healing, family and dreams. My first true painting, <em>The Biggest Hearts Carry the Heaviest Burdens</em>, came in 2020 and showed me what I was capable of. Prints are how these pieces come home with you.</p>
+      <h3 class="list-title">Around town</h3>
+      <ul class="creds">
+        <li>The Bend Magazine Local's List Winner 2026, Multi-Media Artist</li>
+        <li>Guest on the Corpus Christi Originals Podcast, episode 130</li>
+        <li>Exhibited at the Art Center of Corpus Christi: Pawtrait Studio 2024 and the Meet the Parents show</li>
+        <li>PTA Reflections coordinator and co-host of ArtVenture Culture Fest</li>
+        <li>Arts for At-Risk Youth talk with CC Medical Center, Raps &amp; Apps CC and Texas Cultural Trust, August 2026</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band event" id="event" aria-labelledby="event-h">
+  <div class="wrap event-grid">
+    <div class="date" aria-hidden="true"><span class="mon">Oct</span><span class="day">9</span><span class="yr">Fri · 2026</span></div>
+    <div class="event-copy">
+      <p class="kicker">Next event</p>
+      <h2 class="h2" id="event-h">ArtVenture Culture Fest</h2>
+      <p>Shai co-hosts this one. Come see the work in person and say hi.</p>
+      <ul class="event-list hair">
+        <li><b>When</b><span>Friday, October 9, 2026</span></li>
+        <li><b>Where</b><span>Art Center of Corpus Christi, 100 N. Shoreline Blvd</span></li>
+        <li><b>Cost</b><span>Free entry</span></li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&amp;query=Art+Center+of+Corpus+Christi+100+N+Shoreline+Blvd+Corpus+Christi+TX" target="_blank" rel="noopener">Get directions</a>
+      </div>
+    </div>
+    <figure class="event-photo">
+      <img src="../art/shai-event-holding-print-800.jpg" width="640" height="800" loading="lazy" alt="Shai at an event holding The Biggest Hearts Carry the Heaviest Burdens">
+    </figure>
+  </div>
+</section>
+
+<section class="sec contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="kicker">Commissions and custom orders</p>
+      <h2 class="h2" id="contact-h">Got an idea? Tell Shai.</h2>
+      <p class="lead">A commission, a custom sun catcher, a print size you don't see here. Send a message and start the conversation.</p>
+      <div class="btn-row">
+        <a class="btn btn-solid" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
+        <a class="btn btn-line" href="https://www.instagram.com/craftsbythebunny/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-line" href="https://www.facebook.com/craftsbythebunny/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <form class="form" id="form" novalidate>
+      <label>Your name<input name="name" autocomplete="name" placeholder="First and last"></label>
+      <label>Email or phone<input name="contact" autocomplete="email" placeholder="So Shai can write back"></label>
+      <label>What do you have in mind?<textarea name="message" placeholder="A painting, a pet, a color, a size, a sun catcher for someone you love..."></textarea></label>
+      <button class="btn btn-solid" type="submit">Send to Shai</button>
+      <p class="form-status" id="formStatus" role="status" hidden></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="brand" href="#hero"><img src="../art/logo-150.jpg" width="150" height="150" alt="" loading="lazy"><span>Crafts by the Bunny</span></a>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#prints">Prints</a>
+        <a href="#suncatchers">Sun catchers</a>
+        <a href="#about">About</a>
+        <a href="https://www.instagram.com/craftsbythebunny/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/craftsbythebunny/" target="_blank" rel="noopener">Facebook</a>
+      </nav>
+    </div>
+    <div class="foot-small">
+      <span>Mixed-media art by Shai Davenport. Corpus Christi, Texas.</span>
+      <span>© 2026 Crafts by the Bunny</span>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-labelledby="lbTitle">
+  <button class="lb-close" id="lbClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="lb-inner">
+    <div class="lb-art"><span class="art-box" id="lbBox"><img id="lbImg" alt=""></span></div>
+    <div>
+      <h2 class="lb-title" id="lbTitle"></h2>
+      <p class="lb-meta" id="lbMeta"></p>
+      <p class="lb-blurb" id="lbBlurb"></p>
+      <p class="lb-price" id="lbPrice"></p>
+      <div class="btn-row"><a class="btn btn-solid" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* Shared state, static carousel, color engine, lightbox, form. The 3D module upgrades this. */
+(function(){
+  var RING_ALL = [
+    {slug:'love-runs-toward-the-broken', title:'Love Runs Toward the Broken', year:'2026', aspect:.75, ar:.79, price:14, bg:'#a9452b', glow:'#f2c48c', crop:[.047,.0675,.926,.8785], phone:1, w:600, h:800, blurb:'Mixed media: acrylic, beads, feathers, charms and collage on canvas. Paired with a poem.'},
+    {slug:'abandonment', title:'Abandonment', year:'2021', aspect:.8, price:27, bg:'#1263c4', glow:'#8fd6f0', phone:1, w:640, h:800, blurb:'What the word abandonment felt like, painted.'},
+    {slug:'balance-of-fate', title:'Balance of Fate', year:'2021', aspect:.8, price:27, bg:'#876400', glow:'#f2d36b', w:640, h:800, blurb:'Painted from a tarot reading. Eleven tarot themes hidden inside.'},
+    {slug:'the-dream-messenger', title:'The Dream Messenger', year:'2021', aspect:.8, price:27, bg:'#0b7369', glow:'#7ee8de', note:'Original sold', phone:1, w:640, h:800, blurb:'Based on a dream about an owl, a 63-floor building and a girl who was not what she seemed.'},
+    {slug:'the-biggest-hearts', title:'The Biggest Hearts Carry the Heaviest Burdens', year:'2020', aspect:.838, price:27, bg:'#b01c1e', glow:'#f5c99a', phone:1, w:671, h:800, blurb:'Her first true painting, the one that showed her what she was capable of.'},
+    {slug:'the-apple-fell-far-from-the-tree', title:'The Apple Fell Far From the Tree', year:'2022', aspect:1.249, price:27, bg:'#21753a', glow:'#e6dc9e', phone:1, w:800, h:641, blurb:'Painted to break ties with generational patterns. Change starts with the individual.'},
+    {slug:'pisces', title:'Pisces', year:'2023', aspect:.8, price:27, bg:'#7a3589', glow:'#9fd7f2', phone:1, w:640, h:800, blurb:'Part of her Zodiac Fairies series, inspired by women in her life.'},
+    {slug:'the-last-sunrise', title:'The Last Sunrise', year:'2021', aspect:.801, price:27, bg:'#1d27ae', glow:'#f0a868', w:640, h:800, blurb:'Inspired by the song by Mayday.'}
+  ];
+  var isPhone = window.matchMedia('(max-width: 700px)').matches;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var RING = isPhone ? RING_ALL.filter(function(p){return p.phone;}) : RING_ALL;
+  var root = document.documentElement;
+  var hero = document.getElementById('hero');
+  var IG = 'https://ig.me/m/craftsbythebunny';
+
+  /* OKLCH color engine */
+  function toLin(c){return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4);}
+  function toGam(c){return c<=0.0031308?12.92*c:1.055*Math.pow(c,1/2.4)-0.055;}
+  function hexToLch(hex){
+    var n=parseInt(hex.slice(1),16), r=toLin((n>>16)/255), g=toLin(((n>>8)&255)/255), b=toLin((n&255)/255);
+    var l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b), m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b), s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+    var L=.2104542553*l+.793617785*m-.0040720468*s, A=1.9779984951*l-2.428592205*m+.4505937099*s, B=.0259040371*l+.7827717662*m-.808675766*s;
+    return [L, Math.hypot(A,B), Math.atan2(B,A)];
+  }
+  function lchToHex(c){
+    var a=c[1]*Math.cos(c[2]), b=c[1]*Math.sin(c[2]), L=c[0];
+    var l=Math.pow(L+.3963377774*a+.2158037573*b,3), m=Math.pow(L-.1055613458*a-.0638541728*b,3), s=Math.pow(L-.0894841775*a-1.291485548*b,3);
+    var rgb=[4.0767416621*l-3.3077115913*m+.2309699292*s, -1.2684380046*l+2.6097574011*m-.3413193965*s, -.0041960863*l-.7034186147*m+1.707614701*s];
+    return '#'+rgb.map(function(v){v=Math.min(1,Math.max(0,toGam(Math.max(0,v))));return Math.round(v*255).toString(16).padStart(2,'0');}).join('');
+  }
+  function mixLch(a,b,t){
+    var dh=((b[2]-a[2]+3*Math.PI)%(2*Math.PI))-Math.PI;
+    return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+dh*t];
+  }
+  var meta = document.querySelector('meta[name="theme-color"]');
+  var col = {bg:hexToLch(RING[0].bg), glow:hexToLch(RING[0].glow), from:null, to:null, t:1, raf:0, hex:RING[0].bg};
+  function applyColor(bg, glow){
+    var hb=lchToHex(bg), hg=lchToHex(glow);
+    root.style.setProperty('--bg', hb); root.style.setProperty('--glow', hg);
+    col.hex = hb;
+  }
+  function tweenColor(bgHex, glowHex){
+    var target={bg:hexToLch(bgHex), glow:hexToLch(glowHex)};
+    if(reduced){col.bg=target.bg;col.glow=target.glow;applyColor(col.bg,col.glow);meta.content=bgHex;return;}
+    col.from={bg:col.bg.slice(), glow:col.glow.slice()}; col.to=target; col.t=0;
+    var start=performance.now();
+    cancelAnimationFrame(col.raf);
+    (function step(now){
+      var t=Math.min(1,(now-start)/950), e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+      col.bg=mixLch(col.from.bg,col.to.bg,e); col.glow=mixLch(col.from.glow,col.to.glow,e);
+      applyColor(col.bg,col.glow);
+      if(t<1){col.raf=requestAnimationFrame(step);} else {applyColor(target.bg,target.glow);col.bg=target.bg;col.glow=target.glow;meta.content=bgHex;}
+    })(start);
+  }
+
+  /* info + static figure */
+  var nowText=document.getElementById('nowText'), nowTitle=document.getElementById('nowTitle'), nowMeta=document.getElementById('nowMeta');
+  var stillBox=document.getElementById('stillBox'), stillImg=document.getElementById('stillImg');
+  function setBox(box, img, p, size){
+    box.style.setProperty('--ar', p.ar || p.aspect);
+    if(p.crop){box.classList.add('crop');box.style.setProperty('--cx',p.crop[0]);box.style.setProperty('--cy',p.crop[1]);box.style.setProperty('--cw',p.crop[2]);box.style.setProperty('--ch',p.crop[3]);}
+    else{box.classList.remove('crop');}
+    img.src='../art/'+p.slug+'-'+size+'.jpg';
+    img.width=p.w; img.height=p.h;
+    img.alt=p.title+', painting by Shai Davenport';
+  }
+  function metaHTML(p){
+    var bits=['<span>'+p.year+'</span>'];
+    if(p.note) bits.push('<span>'+p.note+'</span>');
+    bits.push('<span>Prints from $'+p.price+'</span>');
+    bits.push('<a class="tlink" href="'+IG+'" target="_blank" rel="noopener">Order a print</a>');
+    return bits.join('<span class="dot" aria-hidden="true">·</span>');
+  }
+  var S = window.STUDIO = {RING:RING, isPhone:isPhone, reduced:reduced, index:0, mode:'static', onNav:null, color:col};
+  S.show = function(i, announce){
+    S.index=i; var p=RING[i];
+    nowText.setAttribute('aria-live', announce ? 'polite' : 'off');
+    nowTitle.textContent=p.title; nowMeta.innerHTML=metaHTML(p);
+    nowText.classList.remove('fade-swap'); void nowText.offsetWidth; nowText.classList.add('fade-swap');
+    if(S.mode!=='3d') setBox(stillBox, stillImg, p, 800);
+    tweenColor(p.bg, p.glow);
+  };
+  S.go = function(dir){
+    if(S.onNav){S.onNav(dir);return;}
+    S.show((S.index+dir+RING.length)%RING.length, true);
+  };
+  S.staticMode = function(){S.mode='static'; hero.classList.add('is-static'); hero.classList.remove('is-3d');};
+  document.getElementById('prev').addEventListener('click',function(){S.go(-1);});
+  document.getElementById('next').addEventListener('click',function(){S.go(1);});
+  var stage=document.getElementById('stage');
+  stage.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft'){e.preventDefault();S.go(-1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();S.go(1);}
+    else if(e.key==='Enter'){S.open(RING[S.index]);}
+  });
+  /* swipe on the static figure (used when 3D is unavailable) */
+  var sx=null;
+  stage.addEventListener('pointerdown',function(e){if(S.mode!=='3d') sx=e.clientX;});
+  stage.addEventListener('pointerup',function(e){
+    if(S.mode==='3d'||sx===null) return;
+    var dx=e.clientX-sx; sx=null;
+    if(Math.abs(dx)>40) S.go(dx<0?1:-1); else S.open(RING[S.index]);
+  });
+
+  /* lightbox */
+  var lb=document.getElementById('lb'), lbBox=document.getElementById('lbBox'), lbImg=document.getElementById('lbImg');
+  S.open = function(p){
+    setBox(lbBox, lbImg, p, 1600);
+    lbImg.alt=p.title+', painting by Shai Davenport';
+    document.getElementById('lbTitle').textContent=p.title;
+    document.getElementById('lbMeta').textContent=p.year+(p.note?' · '+p.note+'. Prints available.':'');
+    document.getElementById('lbBlurb').textContent=p.blurb||'';
+    document.getElementById('lbPrice').textContent='Prints from $'+p.price+', plus shipping';
+    lb.style.setProperty('--lbbg', p.bg);
+    if(typeof lb.showModal==='function') lb.showModal(); else lb.setAttribute('open','');
+  };
+  document.getElementById('lbClose').addEventListener('click',function(){lb.close();});
+  lb.addEventListener('click',function(e){if(e.target===lb) lb.close();});
+  document.querySelectorAll('.card-art').forEach(function(b){
+    b.addEventListener('click',function(){
+      var d=b.dataset, img=b.querySelector('img');
+      S.open({slug:d.slug, title:d.title, year:d.year, price:d.price, bg:d.bg, ar:parseFloat(d.ar), aspect:parseFloat(d.ar), note:d.note, blurb:d.blurb,
+        crop:d.crop?d.crop.split(',').map(parseFloat):null, w:+img.getAttribute('width'), h:+img.getAttribute('height')});
+    });
+  });
+
+  /* price ladder */
+  var rows=document.querySelectorAll('#priceTable tbody tr'), rects=document.querySelectorAll('#ladder rect');
+  function mark(size){
+    rows.forEach(function(r){r.classList.toggle('on', r.dataset.size===size);});
+    rects.forEach(function(r){r.classList.toggle('on', r.dataset.size===size);});
+  }
+  rows.forEach(function(r){
+    r.addEventListener('mouseenter',function(){mark(r.dataset.size);});
+    r.addEventListener('click',function(){mark(r.dataset.size);});
+  });
+  document.getElementById('priceTable').addEventListener('mouseleave',function(){mark('11x14');});
+  mark('11x14');
+
+  /* demo form */
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var s=document.getElementById('formStatus');
+    s.textContent="Thanks for checking out this demo! The form isn't live yet. On the real site it sends straight to Shai's inbox. Questions about the site? Call or text Zonkel Media at 361-658-2912 anytime.";
+    s.hidden=false;
+  });
+})();
+</script>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const S = window.STUDIO;
+const hero = document.getElementById('hero');
+const stage = document.getElementById('stage');
+const cvs = document.getElementById('ring');
+
+function webglOK(){
+  try{ const c=document.createElement('canvas'); return !!(c.getContext('webgl2')||c.getContext('webgl')); }catch(e){ return false; }
+}
+/* file:// pages cannot hand local images to WebGL unless the browser allows it; probe quietly first */
+function canUseLocalImages(){
+  if(location.protocol!=='file:') return Promise.resolve(true);
+  return new Promise(res=>{
+    const im=new Image();
+    im.onload=()=>{ try{ const c=document.createElement('canvas'); c.width=c.height=2; const g=c.getContext('2d'); g.drawImage(im,0,0,2,2); g.getImageData(0,0,1,1); res(true);}catch(e){ res(false);} };
+    im.onerror=()=>res(false);
+    im.src='../art/logo-150.jpg';
+  });
+}
+function loadImage(src){
+  return new Promise((res,rej)=>{ const im=new Image(); im.decoding='async'; im.onload=()=>res(im); im.onerror=rej; im.src=src; });
+}
+function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+
+async function main(){
+  if(!webglOK()) return S.staticMode();
+  if(!(await canUseLocalImages())) return S.staticMode();
+  let images;
+  try{ images = await Promise.all(S.RING.map(p=>loadImage(`../art/${p.slug}-800.jpg`))); }
+  catch(e){ return S.staticMode(); }
+
+  const isPhone = S.isPhone, reduced = S.reduced;
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({canvas:cvs, antialias:true, alpha:true, powerPreference:'high-performance'});
+  }catch(e){ return S.staticMode(); }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, isPhone?1.5:2));
+  renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  const scene = new THREE.Scene();
+  const fog = new THREE.Fog(new THREE.Color(S.color.hex), 6, 14);
+  scene.fog = fog;
+  const FOV = isPhone ? 36 : 30;
+  const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 60);
+
+  scene.add(new THREE.AmbientLight(0xffffff, 2.25));
+  const key = new THREE.DirectionalLight(0xffffff, 1.05);
+  key.position.set(2.6, 3.2, 6.5);
+  scene.add(key);
+  const rim = new THREE.DirectionalLight(0xfff1dd, 0.5);
+  rim.position.set(-4, 1.5, -2);
+  scene.add(rim);
+
+  const N = S.RING.length, STEP = Math.PI*2/N;
+  const R = isPhone ? 1.3 : 2.05;
+  const DEPTH = 0.045;
+  const maxAniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+
+  /* back of a stretched canvas: raw linen over wooden stretcher bars */
+  function backTexture(){
+    const c=document.createElement('canvas'); c.width=256; c.height=320; const g=c.getContext('2d');
+    g.fillStyle='#b98d5f'; g.fillRect(0,0,256,320);
+    g.fillStyle='#e8dcc6'; g.fillRect(20,20,216,280);
+    const r=rng(7);
+    for(let i=0;i<2600;i++){ g.fillStyle=`rgba(120,96,64,${r()*0.08})`; g.fillRect(r()*256, r()*320, 1.5, 1.5); }
+    g.strokeStyle='rgba(90,60,30,.35)'; g.lineWidth=2; g.strokeRect(20,20,216,280);
+    g.fillStyle='rgba(120,90,50,.55)';
+    for(let y=34;y<300;y+=36){ g.fillRect(6,y,8,3); g.fillRect(242,y,8,3); }
+    for(let x=34;x<240;x+=36){ g.fillRect(x,6,3,8); g.fillRect(x,306,3,8); }
+    const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+  }
+  const backMat = new THREE.MeshLambertMaterial({map:backTexture()});
+
+  /* box with gallery wrap: sides sample the painting's outer edge, mirrored, like a real wrapped canvas */
+  function canvasGeometry(w,h,d,crop){
+    const g = new THREE.BoxGeometry(w,h,d);
+    const uv = g.attributes.uv;
+    let u0=0,v0=0,cw=1,ch=1;
+    if(crop){ u0=crop[0]; cw=crop[2]; ch=crop[3]; v0=1-crop[1]-ch; }
+    const u1=u0+cw, v1=v0+ch, su=(d/w)*cw, sv=(d/h)*ch;
+    for(let f=0; f<6; f++){
+      for(let k=0;k<4;k++){
+        const i=f*4+k, x=uv.getX(i), y=uv.getY(i);
+        let nu=x, nv=y;
+        if(f===0){ nu=u1-su*x; nv=v0+ch*y; }
+        else if(f===1){ nu=u0+su*(1-x); nv=v0+ch*y; }
+        else if(f===2){ nu=u0+cw*x; nv=v1-sv*y; }
+        else if(f===3){ nu=u0+cw*x; nv=v0+sv*(1-y); }
+        else if(f===4){ nu=u0+cw*x; nv=v0+ch*y; }
+        uv.setXY(i,nu,nv);
+      }
+    }
+    uv.needsUpdate=true;
+    return g;
+  }
+
+  const ring = new THREE.Group();
+  scene.add(ring);
+  let maxH=0;
+  const meshes = S.RING.map((p,i)=>{
+    const tex = new THREE.Texture(images[i]);
+    tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = maxAniso; tex.needsUpdate = true;
+    const w=Math.sqrt(1.25*p.aspect), h=Math.sqrt(1.25/p.aspect);
+    maxH=Math.max(maxH,h);
+    const mat = new THREE.MeshLambertMaterial({map:tex});
+    const mesh = new THREE.Mesh(canvasGeometry(w,h,DEPTH,p.crop), [mat,mat,mat,mat,mat,backMat]);
+    const th=i*STEP;
+    mesh.position.set(Math.sin(th)*R, 0, Math.cos(th)*R);
+    mesh.rotation.y = th;
+    mesh.userData.index = i;
+    ring.add(mesh);
+    return mesh;
+  });
+
+  /* soft floor shadow */
+  {
+    const c=document.createElement('canvas'); c.width=c.height=128; const g=c.getContext('2d');
+    const gr=g.createRadialGradient(64,64,0,64,64,64); gr.addColorStop(0,'rgba(0,0,0,.55)'); gr.addColorStop(.6,'rgba(0,0,0,.22)'); gr.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=gr; g.fillRect(0,0,128,128);
+    const t=new THREE.CanvasTexture(c);
+    const sh=new THREE.Mesh(new THREE.PlaneGeometry(1,1), new THREE.MeshBasicMaterial({map:t, transparent:true, depthWrite:false, opacity:.6}));
+    sh.rotation.x=-Math.PI/2; sh.scale.set(2*R+1.8, 2*R+1.4, 1); sh.position.y=-maxH/2-0.16;
+    scene.add(sh);
+  }
+
+  /* hand-beaded strands */
+  const CANDY=['#ff5fa2','#ffd23f','#3ddbd9','#b48cff','#7ee081','#ff8c42','#fff3e6','#9fe7ff','#ff7ad9'];
+  const strandSpecs = isPhone
+    ? [{sx:.045, z:R*.9, end:.30, seed:3}, {sx:.955, z:R*.35, end:.34, seed:11}]
+    : [{sx:.075, z:R*.7, end:.56, seed:3}, {sx:.93, z:R*.55, end:.50, seed:11}, {sx:.77, z:-R*1.05, end:.36, seed:19}];
+  const strands = strandSpecs.map(spec=>{
+    const r=rng(spec.seed); const beads=[];
+    return {spec, r, beads, anchor:new THREE.Vector3(), L:1, phase:r()*6.28, amp:.05+r()*.03, freq:.55+r()*.25};
+  });
+  function buildBeads(st){
+    const r=rng(st.spec.seed); st.beads.length=0;
+    const span=Math.min(st.L-.1, isPhone?.7:1.0);
+    let s=st.L-span, prev=0;
+    while(true){
+      const big=r()<.42, pearl=!big && r()<.18;
+      const rad= big ? .022+r()*.016 : pearl ? .017 : .0105;
+      s += prev + rad + .003;
+      if(s > st.L-.07) break;
+      st.beads.push({s, rad, color: pearl ? '#fff6ea' : CANDY[(r()*CANDY.length)|0]});
+      prev=rad;
+    }
+  }
+  const MAXB = 140;
+  const beadMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, isPhone?10:14, isPhone?8:10), new THREE.MeshPhongMaterial({shininess:90, specular:0x666666}), MAXB);
+  beadMesh.frustumCulled=false;
+  scene.add(beadMesh);
+  const crystalGeo = new THREE.OctahedronGeometry(1,0);
+  {
+    const pc=['#ffd1f0','#c8f1ff','#fff3b0','#d9c8ff','#c6ffe0','#ffffff','#ffd9b8','#bfe6ff'];
+    const cols=[]; const cc=new THREE.Color();
+    for(let f=0; f<crystalGeo.attributes.position.count/3; f++){ cc.set(pc[f%pc.length]); for(let k=0;k<3;k++) cols.push(cc.r,cc.g,cc.b); }
+    crystalGeo.setAttribute('color', new THREE.Float32BufferAttribute(cols,3));
+  }
+  const crystalMat = new THREE.MeshPhongMaterial({vertexColors:true, flatShading:true, shininess:140, specular:0xffffff, transparent:true, opacity:.94});
+  const lineMat = new THREE.LineBasicMaterial({color:0xfff7ea, transparent:true, opacity:.55});
+  strands.forEach(st=>{
+    st.crystal=new THREE.Mesh(crystalGeo, crystalMat); st.crystal.scale.set(.05,.085,.05); scene.add(st.crystal);
+    st.lineGeo=new THREE.BufferGeometry(); st.lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(14*3),3));
+    st.line=new THREE.Line(st.lineGeo, lineMat); st.line.frustumCulled=false; scene.add(st.line);
+  });
+
+  /* soft white feathers */
+  function featherTexture(){
+    const c=document.createElement('canvas'); c.width=128; c.height=512; const g=c.getContext('2d');
+    const r=rng(5); g.translate(64,500); g.lineCap='round';
+    const len=470, P=t=>[10*t*t-3*t, -t*len];
+    for(let t=.03;t<.985;t+=.0065){
+      const [x,y]=P(t), prof=Math.sin(Math.PI*Math.pow(t,.72)), fluffy=t<.2;
+      for(const side of [-1,1]){
+        const L=(side<0?40:50)*prof*(.82+r()*.32)+ (fluffy?10:0);
+        const ang=fluffy ? .7+r()*.9 : 1.02+(r()-.5)*.08;
+        const ex=x+side*Math.sin(ang)*L, ey=y-Math.cos(ang)*L;
+        g.strokeStyle=`rgba(255,255,255,${fluffy?.28:.6})`; g.lineWidth=fluffy?1:1.25;
+        g.beginPath(); g.moveTo(x,y); g.quadraticCurveTo(x+side*L*.55, y-L*.05, ex, ey); g.stroke();
+      }
+    }
+    g.strokeStyle='rgba(255,250,240,.95)'; g.lineWidth=3.2; g.beginPath();
+    for(let t=0;t<=1;t+=.02){ const [x,y]=P(t); t===0?g.moveTo(x,y+12):g.lineTo(x,y); } g.stroke();
+    const tex=new THREE.CanvasTexture(c); tex.colorSpace=THREE.SRGBColorSpace; return tex;
+  }
+  const fGeo=new THREE.PlaneGeometry(.12,.46,1,8);
+  { const pos=fGeo.attributes.position; for(let i=0;i<pos.count;i++){ const y=pos.getY(i)/.23; pos.setZ(i, .06*y*y); pos.setX(i, pos.getX(i)+.018*y*y); } fGeo.computeVertexNormals(); }
+  const fMat=new THREE.MeshLambertMaterial({map:featherTexture(), transparent:true, side:THREE.DoubleSide, depthWrite:false, alphaTest:.03});
+  const fr=rng(23);
+  const fSpots = isPhone
+    ? [{sx:.12, z:R*1.15}, {sx:.86, z:R*.7}, {sx:.62, z:-R*1.2}]
+    : [{sx:.17, z:R*.95}, {sx:.84, z:R*.75}, {sx:.33, z:-R*.9}, {sx:.66, z:-R*1.1}];
+  const feathers=fSpots.map((spot,i)=>{
+    const m=new THREE.Mesh(fGeo,fMat);
+    const f={m, sx:spot.sx, sy:fr(), z:spot.z,
+      speed:.035+fr()*.03, sway:.08+fr()*.08, ph:fr()*6.28, spin:(fr()-.5)*.6, tilt:(fr()-.5)*1.2, scale:.75+fr()*.5,
+      top:new THREE.Vector3(), bot:new THREE.Vector3(), y:0};
+    m.scale.setScalar(f.scale); scene.add(m); return f;
+  });
+
+  /* layout: fit the front canvas to the stage box, center the projection on it */
+  const tanH = Math.tan(THREE.MathUtils.degToRad(FOV/2));
+  let W=1,H=1,s=300,D=5,frontPx=300;
+  const tmp=new THREE.Vector3(), dir=new THREE.Vector3();
+  function screenToWorld(px,py,zPlane,out){
+    tmp.set(px/W*2-1, -(py/H)*2+1, .5).unproject(camera);
+    dir.copy(tmp).sub(camera.position).normalize();
+    const t=(zPlane-camera.position.z)/dir.z;
+    return out.copy(camera.position).addScaledVector(dir,t);
+  }
+  function layout(){
+    W=hero.clientWidth; H=hero.clientHeight;
+    renderer.setSize(W,H,false);
+    const hr=hero.getBoundingClientRect(), st=stage.getBoundingClientRect();
+    const cx=st.left-hr.left+st.width/2, cy=st.top-hr.top+st.height/2;
+    s=Math.min(st.height*.9/maxH, isPhone ? W*.64 : W*.3);
+    frontPx=s;
+    D=H/(2*tanH*s);
+    camera.aspect=W/H;
+    camera.position.set(0, D*(isPhone?.16:.13), R+D);
+    camera.lookAt(0,0,R);
+    camera.setViewOffset(W,H, W/2-cx, H/2-cy, W,H);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+    fog.near=D+R*.55; fog.far=D+R*4.6;
+    strands.forEach(st2=>{
+      screenToWorld(st2.spec.sx*W, -30, st2.spec.z, st2.anchor);
+      const end=screenToWorld(st2.spec.sx*W, st2.spec.end*H, st2.spec.z, new THREE.Vector3());
+      st2.L=Math.max(.4, st2.anchor.y-end.y);
+      buildBeads(st2);
+    });
+    let n=0; strands.forEach(st2=>n+=st2.beads.length); beadMesh.count=Math.min(MAXB,n);
+    { let k=0; const c=new THREE.Color(); strands.forEach(st2=>st2.beads.forEach(b=>{ if(k<MAXB){ c.set(b.color); beadMesh.setColorAt(k++,c);} })); if(beadMesh.instanceColor) beadMesh.instanceColor.needsUpdate=true; }
+    feathers.forEach(f=>{
+      screenToWorld(f.sx*W, -60, f.z, f.top); screenToWorld(f.sx*W, H+60, f.z, f.bot);
+      f.y = f.top.y + (f.bot.y-f.top.y)*f.sy;
+    });
+  }
+
+  /* motion state */
+  let angle=0, target=0, vel=0, k=12, settledAt=performance.now(), holdUntil=performance.now()+2600, shown=0;
+  const SOFT=11, SNAP=34, DWELL=3600;
+  const mod=(a,n)=>((a%n)+n)%n;
+  function nearestAngleFor(i){ const d=mod(i*STEP-angle+Math.PI, Math.PI*2)-Math.PI; return angle+d; }
+  S.onNav = dir=>{ target=Math.round(target/STEP)*STEP + dir*STEP; k=SNAP*.7; holdUntil=performance.now()+9000; settledAt=null; };
+
+  /* pointer: drag with inertia, tap to focus or open */
+  const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  let drag=null;
+  function pick(e){
+    const r=cvs.getBoundingClientRect();
+    ndc.set((e.clientX-r.left)/r.width*2-1, -((e.clientY-r.top)/r.height)*2+1);
+    ray.setFromCamera(ndc,camera);
+    const hit=ray.intersectObjects(meshes,false)[0];
+    return hit ? hit.object.userData.index : -1;
+  }
+  cvs.addEventListener('pointerdown',e=>{
+    if(e.button!==0) return;
+    drag={id:e.pointerId, x:e.clientX, y:e.clientY, lx:e.clientX, lt:performance.now(), moved:0, v:0};
+    cvs.style.cursor='';
+    vel=0; holdUntil=performance.now()+9000; settledAt=null;
+  });
+  cvs.addEventListener('pointermove',e=>{
+    if(!drag||e.pointerId!==drag.id) return;
+    const now=performance.now(), dx=e.clientX-drag.lx, dt=Math.max(1,now-drag.lt)/1000;
+    drag.moved+=Math.abs(dx);
+    if(drag.moved>4 && !drag.cap){ try{cvs.setPointerCapture(drag.id);}catch(_){} drag.cap=true; hero.classList.add('grabbing'); }
+    const da=-dx/(frontPx*1.15)*STEP;
+    angle+=da; target=angle;
+    drag.v = drag.v*.6 + (da/dt)*.4;
+    drag.lx=e.clientX; drag.lt=now;
+  });
+  function endDrag(e, cancelled){
+    if(!drag||e.pointerId!==drag.id) return;
+    const d=drag; drag=null; hero.classList.remove('grabbing');
+    if(!cancelled && d.moved<6){
+      const i=pick(e); const front=mod(Math.round(angle/STEP),N);
+      if(i===front) S.open(S.RING[i]);
+      else if(i>=0){ target=nearestAngleFor(i); k=SNAP*.7; }
+      return;
+    }
+    const v = (performance.now()-d.lt)>120 ? 0 : d.v;
+    vel=v; target=Math.round((angle+v*.32)/STEP)*STEP; k=SNAP;
+  }
+  cvs.addEventListener('pointerup',e=>endDrag(e,false));
+  cvs.addEventListener('pointercancel',e=>endDrag(e,true));
+  let hoverQueued=false;
+  cvs.addEventListener('pointermove',e=>{
+    if(drag||hoverQueued||e.pointerType!=='mouse') return; hoverQueued=true;
+    requestAnimationFrame(()=>{ hoverQueued=false; const i=pick(e); const front=mod(Math.round(angle/STEP),N); cvs.style.cursor = i<0 ? '' : (i===front ? 'zoom-in' : 'pointer'); });
+  });
+
+  /* render loop */
+  const dummy=new THREE.Object3D(), pts=[];
+  let last=performance.now(), t=0, fogHex='';
+  function strandPoint(st, sDist, time, out){
+    const sw = reduced ? 0 : st.amp*Math.sin(time*st.freq+st.phase);
+    const a = sw*(1+.35*sDist/st.L), az = reduced ? 0 : .35*st.amp*Math.sin(time*st.freq*.7+st.phase*1.7);
+    return out.set(st.anchor.x+Math.sin(a)*sDist, st.anchor.y-Math.cos(a)*sDist, st.anchor.z+Math.sin(az)*sDist);
+  }
+  const pv=new THREE.Vector3();
+  function frame(now){
+    const dt=Math.min(.05,(now-last)/1000); last=now; t+=dt;
+    if(!drag){
+      if(!reduced && now>holdUntil && settledAt!==null && now-settledAt>DWELL){ target+=STEP; k=SOFT; settledAt=null; }
+      const acc=k*(target-angle)-2*Math.sqrt(k)*vel;
+      vel+=acc*dt; angle+=vel*dt;
+      if(Math.abs(target-angle)<.0008 && Math.abs(vel)<.004){ angle=target; vel=0; if(settledAt===null) settledAt=now; }
+    }
+    ring.rotation.y=-angle;
+    if(!reduced) meshes.forEach((m,i)=>{ m.position.y=Math.sin(t*.7+i*1.3)*.012; });
+    const fi=mod(Math.round(angle/STEP),N);
+    if(fi!==shown){ shown=fi; S.show(fi, !!drag || now<holdUntil); }
+
+    let bi=0;
+    strands.forEach(st=>{
+      st.beads.forEach(b=>{
+        if(bi>=MAXB) return;
+        strandPoint(st,b.s,t,pv); dummy.position.copy(pv); dummy.scale.setScalar(b.rad); dummy.updateMatrix();
+        beadMesh.setMatrixAt(bi++, dummy.matrix);
+      });
+      strandPoint(st, st.L+.075, t, pv); st.crystal.position.copy(pv); st.crystal.rotation.y = reduced ? .4 : t*.45;
+      const arr=st.lineGeo.attributes.position.array;
+      for(let j=0;j<14;j++){ strandPoint(st, (st.L+.01)*j/13, t, pv); arr[j*3]=pv.x; arr[j*3+1]=pv.y; arr[j*3+2]=pv.z; }
+      st.lineGeo.attributes.position.needsUpdate=true;
+    });
+    beadMesh.instanceMatrix.needsUpdate=true;
+
+    feathers.forEach(f=>{
+      if(!reduced){ f.y -= f.speed*dt; if(f.y < f.bot.y) f.y = f.top.y; }
+      const x = f.top.x + (reduced?0:Math.sin(t*.45+f.ph)*f.sway);
+      f.m.position.set(x, f.y, f.top.z);
+      f.m.rotation.set(.3+Math.sin(t*.3+f.ph)*.25, f.ph + (reduced?0:t*f.spin), f.tilt + (reduced?0:Math.sin(t*.6+f.ph)*.35));
+    });
+
+    if(S.color.hex!==fogHex){ fogHex=S.color.hex; fog.color.set(fogHex); }
+    renderer.render(scene,camera);
+  }
+
+  /* run only when visible */
+  let visible=true, running=false;
+  function sync(){
+    const run = visible && !document.hidden;
+    if(run && !running){ last=performance.now(); renderer.setAnimationLoop(frame); running=true; }
+    else if(!run && running){ renderer.setAnimationLoop(null); running=false; }
+  }
+  new IntersectionObserver(es=>{ visible=es[0].isIntersecting; sync(); }, {threshold:0}).observe(hero);
+  document.addEventListener('visibilitychange', sync);
+  new ResizeObserver(()=>{ layout(); if(!running) renderer.render(scene,camera); }).observe(hero);
+
+  layout();
+  frame(performance.now());
+  S.mode='3d';
+  hero.classList.add('is-3d');
+  hero.classList.remove('is-static');
+  sync();
+
+  /* verification hook: render once and sample pixels from the stage area */
+  window.__ringProbe = ()=>{
+    renderer.render(scene,camera);
+    const gl=renderer.getContext(), pr=renderer.getPixelRatio();
+    const st=stage.getBoundingClientRect(), hr=hero.getBoundingClientRect();
+    let lit=0, n=0; const px=new Uint8Array(4);
+    for(let i=1;i<10;i++) for(let j=1;j<10;j++){
+      const x=Math.floor((st.left-hr.left+st.width*i/10)*pr), y=Math.floor((H-(st.top-hr.top+st.height*j/10))*pr);
+      gl.readPixels(x,y,1,1,gl.RGBA,gl.UNSIGNED_BYTE,px); n++; if(px[3]>200) lit++;
+    }
+    return {lit, n, front:S.RING[mod(Math.round(angle/STEP),N)].title, angle};
+  };
+}
+
+main().catch(()=>S.staticMode());
+</script>
+</body>
+</html>

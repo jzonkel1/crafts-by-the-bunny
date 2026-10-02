@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Crafts by the Bunny | Mockup: Every Piece Sets the Room</title>
+<meta name="description" content="Giclee prints of one-of-a-kind mixed-media paintings by Shai Davenport, made in Corpus Christi, Texas.">
+<meta name="theme-color" content="#24130e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../art/love-runs-toward-the-broken-800.jpg">
+<style>
+/* ---------- Scene colour tokens (animated by JS, one set per painting) ---------- */
+@property --ink    { syntax: '<color>';  inherits: true; initial-value: #fbf1e6; }
+@property --soft   { syntax: '<color>';  inherits: true; initial-value: #efd7c2; }
+@property --field  { syntax: '<color>';  inherits: true; initial-value: #24130e; }
+@property --accent { syntax: '<color>';  inherits: true; initial-value: #eaa95c; }
+@property --on     { syntax: '<color>';  inherits: true; initial-value: #1c1009; }
+@property --tint   { syntax: '<number>'; inherits: true; initial-value: 0.42; }
+@property --vig    { syntax: '<number>'; inherits: true; initial-value: 0.5; }
+
+:root{
+  --ink:#fbf1e6; --soft:#efd7c2; --field:#24130e; --accent:#eaa95c; --on:#1c1009; --tint:.42; --vig:.5;
+  --line: color-mix(in srgb, var(--ink) 24%, transparent);
+  --nav-h: 68px;
+  --gutter: clamp(16px, 4.2vw, 64px);
+  --maxw: 1320px;
+  --serif: 'Eczar', Georgia, serif;
+  --sans: 'Work Sans', system-ui, sans-serif;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --scene-t: .95s;
+}
+html.js{ transition: --ink var(--scene-t) ease, --soft var(--scene-t) ease, --field var(--scene-t) ease,
+  --accent var(--scene-t) ease, --on var(--scene-t) ease, --tint var(--scene-t) ease, --vig var(--scene-t) ease; }
+@media (prefers-reduced-motion: reduce){ :root{ --scene-t: .35s; } }
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+body{
+  margin:0; background:var(--field); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.6; font-weight:400;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:clip;
+}
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; }
+button{ font:inherit; color:inherit; }
+h1,h2,h3{ font-family:var(--serif); margin:0; font-weight:700; }
+p{ margin:0; }
+::selection{ background:var(--accent); color:var(--on); }
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.scene{ overflow-x:clip; }
+.vh{ position:absolute!important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+/* ---------- Fixed backdrop: the painting becomes the room ---------- */
+.backdrop{ position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; background:var(--field); }
+.bd-layer{
+  position:absolute; inset:-14%; width:128%; height:128%; max-width:none; object-fit:cover;
+  filter: blur(56px) saturate(1.35) brightness(.8);
+  opacity:0; transition: opacity calc(var(--scene-t) * 1.25) ease;
+  will-change: opacity, transform; transform: translate3d(0,0,0) scale(1.06);
+}
+.bd-layer.is-light{ filter: blur(60px) saturate(1.5) brightness(1.12); }
+.bd-layer.on{ opacity:1; }
+.bd-layer.is-light.on{ opacity:.7; }
+.bd-tint{ position:absolute; inset:0; background:var(--field); opacity:var(--tint); }
+.bd-vig{ position:absolute; inset:0; opacity:var(--vig);
+  background: radial-gradient(120% 95% at 50% 42%, rgb(0 0 0 / 0) 38%, rgb(0 0 0 / .85) 100%); }
+.grain{ position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* static mode (no fixed backdrop): each section paints its own room. Used for full-page captures. */
+html.static .backdrop{ display:none; }
+html.static .scene{ position:relative; isolation:isolate; }
+.sbg{ position:absolute; inset:0; z-index:-1; overflow:hidden; background:var(--field); }
+.sbg img{ position:absolute; inset:-14%; width:128%; height:128%; max-width:none; object-fit:cover; filter: blur(56px) saturate(1.35) brightness(.8); }
+.sbg img.is-light{ filter: blur(60px) saturate(1.5) brightness(1.12); opacity:.7; }
+.sbg i{ position:absolute; inset:0; background:var(--field); opacity:var(--tint); }
+.sbg b{ position:absolute; inset:0; opacity:var(--vig); background: radial-gradient(120% 95% at 50% 42%, rgb(0 0 0 / 0) 38%, rgb(0 0 0 / .85) 100%); }
+
+/* ---------- Nav ---------- */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50; height:var(--nav-h);
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  padding:0 var(--gutter); color:var(--ink);
+  transition: background-color .4s ease, box-shadow .4s ease;
+}
+.nav.scrolled{
+  background: color-mix(in srgb, var(--field) 80%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 1px 0 var(--line);
+}
+.brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+.brand img{ width:34px; height:34px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 1px var(--line); }
+.brand span{ font-family:var(--serif); font-weight:600; font-size:1.2rem; letter-spacing:.005em; line-height:1; padding-top:3px; }
+.nav-links{ display:flex; align-items:center; gap:clamp(18px, 2.4vw, 34px); list-style:none; margin:0; padding:0; }
+.nav-links a{ text-decoration:none; font-size:.9rem; font-weight:500; letter-spacing:.02em; opacity:.92; }
+.nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:6px; text-decoration-thickness:1px; }
+.nav-links .nav-cta{ border:1px solid color-mix(in srgb, var(--ink) 55%, transparent); padding:9px 16px; border-radius:2px; opacity:1; }
+.nav-links .nav-cta:hover{ background:var(--ink); color:var(--field); text-decoration:none; }
+.menu-btn{ display:none; background:none; border:1px solid color-mix(in srgb, var(--ink) 50%, transparent); border-radius:2px;
+  padding:9px 15px; font-size:.82rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; }
+.sheet{ position:fixed; inset:0; z-index:49; background:var(--field); color:var(--ink);
+  display:flex; flex-direction:column; justify-content:center; padding:calc(var(--nav-h) + 20px) 24px 40px;
+  opacity:0; visibility:hidden; transition:opacity .3s ease, visibility 0s linear .3s; }
+.sheet.open{ opacity:1; visibility:visible; transition:opacity .3s ease; }
+.sheet ul{ list-style:none; margin:0 auto; padding:0; width:100%; max-width:400px; }
+.sheet li{ border-top:1px solid var(--line); }
+.sheet li:last-child{ border-bottom:1px solid var(--line); }
+.sheet a{ display:flex; justify-content:space-between; align-items:center; padding:16px 2px; text-decoration:none;
+  font-family:var(--serif); font-size:1.75rem; font-weight:600; line-height:1.2; }
+.sheet a span{ font-family:var(--sans); font-size:1rem; opacity:.7; }
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.6em;
+  min-height:52px; padding:0 26px; border-radius:2px; cursor:pointer;
+  font-family:var(--sans); font-size:.8rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  text-decoration:none; white-space:nowrap; border:1px solid transparent;
+  transition: transform .25s var(--ease), background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+.btn-primary{ background:var(--accent); color:var(--on); }
+.btn-primary:hover{ transform:translateY(-2px); }
+.btn-ghost{ background:transparent; color:var(--ink); border-color:color-mix(in srgb, var(--ink) 50%, transparent); }
+.btn-ghost:hover{ border-color:var(--ink); background:color-mix(in srgb, var(--ink) 8%, transparent); }
+.btn-row{ display:flex; flex-wrap:wrap; gap:12px; }
+.arrow{ font-family:var(--sans); font-weight:400; letter-spacing:0; }
+
+/* ---------- Shared type ---------- */
+.kicker{ font-size:.78rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); }
+.section{ padding: clamp(84px, 12svh, 140px) var(--gutter); }
+.wrap{ max-width:var(--maxw); margin:0 auto; width:100%; }
+.h2{ font-size:clamp(2.4rem, 4.8vw, 4.4rem); line-height:.98; letter-spacing:-.015em; font-weight:700; text-wrap:balance; }
+.lede{ font-size:clamp(1.05rem, 1.25vw, 1.2rem); color:var(--soft); max-width:36rem; text-wrap:pretty; }
+
+/* ---------- Painting frames ---------- */
+.frame{
+  --h: min(74svh, 780px);
+  position:relative; display:block; padding:0; border:0; background:#111; cursor:zoom-in;
+  width:min(100%, calc(var(--h) * var(--ar)));
+  aspect-ratio: var(--ar);
+  box-shadow:
+    0 1px 1px rgb(0 0 0 / .28),
+    0 8px 14px -4px rgb(0 0 0 / .32),
+    0 30px 54px -16px rgb(0 0 0 / .55),
+    0 70px 120px -46px rgb(0 0 0 / .65);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.frame::after{ content:""; position:absolute; inset:0; pointer-events:none;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .07), inset 0 1px 0 rgb(255 255 255 / .12); }
+.frame img{ width:100%; height:100%; object-fit:cover; }
+.frame:hover{ transform:translateY(-4px); }
+.frame.crop{ overflow:hidden; }
+.frame.crop img{ position:absolute; max-width:none; width:107.91%; height:auto; left:-5.216%; top:-8%; object-fit:fill; }
+.art{ position:relative; width:100%; display:flex; justify-content:center; align-items:center; }
+.art::before{ /* soft gallery light falling on the wall above the piece */
+  content:""; position:absolute; left:50%; top:-12%; width:min(130%, 900px); height:70%; transform:translateX(-50%);
+  background: radial-gradient(closest-side, rgb(255 246 230 / .13), rgb(255 246 230 / 0)); pointer-events:none; }
+
+/* ---------- Hero ---------- */
+.hero{ min-height:100svh; display:flex; align-items:center; padding: calc(var(--nav-h) + 4svh) var(--gutter) 6svh; }
+.hero-inner{
+  max-width:var(--maxw); margin:0 auto; width:100%;
+  display:grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); column-gap:clamp(32px,6vw,110px);
+  grid-template-rows: 1fr auto auto auto auto auto 1fr;
+  grid-template-areas: ". art" "kick art" "title art" "lede art" "cta art" "meta art" ". art";
+}
+.hero .kicker{ grid-area:kick; margin-bottom:22px; }
+.hero h1{ grid-area:title; font-size:clamp(3.4rem, 7.6vw, 8.2rem); line-height:.88; letter-spacing:-.025em; font-weight:800; }
+.hero h1 .l2{ display:block; }
+.hero .lede{ grid-area:lede; margin-top:28px; font-size:clamp(1.1rem, 1.35vw, 1.28rem); color:var(--ink); max-width:30rem; }
+.hero .btn-row{ grid-area:cta; margin-top:34px; }
+.hero .meta{ grid-area:meta; margin-top:26px; font-size:.92rem; color:var(--soft); }
+.hero .frame{ --h: min(78svh, 820px); }
+.hero-label{ position:absolute; left:0; right:0; bottom:-44px; text-align:center; font-size:.88rem; color:var(--soft); }
+.hero-label strong{ font-family:var(--serif); font-weight:600; font-size:1rem; color:var(--ink); }
+.hero .art-col{ grid-area:art; position:relative; display:flex; justify-content:center; align-items:center; padding-bottom:40px; }
+
+/* ---------- Prints intro ---------- */
+.intro{ padding: clamp(110px, 20svh, 220px) var(--gutter) clamp(40px, 8svh, 90px); text-align:center; }
+.intro .h2{ font-size:clamp(2.6rem, 6.4vw, 6rem); margin:18px auto 26px; max-width:14ch; }
+.intro .lede{ margin:0 auto; }
+
+/* ---------- Rooms ---------- */
+.room{ min-height:100svh; display:flex; align-items:center; padding: calc(var(--nav-h) + 5svh) var(--gutter) 8svh; }
+.room-inner{ max-width:var(--maxw); margin:0 auto; width:100%;
+  display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:clamp(36px, 6vw, 120px); align-items:center; }
+.room.flip .room-inner{ grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); }
+.room.flip .art{ order:2; }
+.copy{ max-width:32rem; }
+.room.flip .copy{ justify-self:end; }
+.year{ display:flex; align-items:center; gap:16px; font-family:var(--serif); font-weight:500; font-size:1.25rem; color:var(--accent); letter-spacing:.06em; }
+.year::after{ content:""; width:56px; height:1px; background:currentColor; opacity:.7; }
+.title{ margin-top:14px; font-size:clamp(2.6rem, 4.6vw, 5rem); line-height:.96; letter-spacing:-.018em; text-wrap:balance; padding-bottom:.14em; margin-bottom:-.14em; }
+.quote{ margin:28px 0 0; padding:0; font-family:var(--serif); font-weight:500; font-size:clamp(1.45rem, 2vw, 1.9rem); line-height:1.2; color:var(--ink); text-wrap:balance; }
+.quote cite{ display:block; margin-top:10px; font-family:var(--sans); font-style:normal; font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); }
+.desc{ margin-top:24px; font-size:1.1rem; color:var(--soft); max-width:28rem; text-wrap:pretty; }
+.desc + .desc{ margin-top:10px; }
+.buy{ margin-top:34px; padding-top:22px; border-top:1px solid var(--line); }
+.from{ font-size:.95rem; font-weight:500; letter-spacing:.02em; margin-bottom:16px; }
+.from b{ font-family:var(--serif); font-size:1.35rem; font-weight:600; letter-spacing:0; margin-left:4px; }
+
+/* reveal */
+html.js:not(.static) .reveal{ opacity:0; transform:translateY(22px); transition: opacity .9s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+html.js:not(.static) .title.reveal{ transform:none; clip-path: inset(0 0 100% 0); transition: opacity .6s ease, clip-path 1.1s var(--ease); transition-delay: var(--d, 0s); }
+html.js:not(.static) .in .reveal, html.js:not(.static) .reveal.in{ opacity:1; transform:none; clip-path: inset(0 0 0 0); }
+html.js:not(.static) .title.reveal.done{ clip-path:none; }
+@media (prefers-reduced-motion: reduce){
+  html.js:not(.static) .reveal, html.js:not(.static) .title.reveal{ opacity:1; transform:none; clip-path:none; transition:none; }
+  .frame, .frame:hover, .btn-primary:hover{ transform:none; transition:none; }
+}
+
+/* ---------- More prints (compact grid / phone swipe row) ---------- */
+.more-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:32px; margin-bottom:clamp(36px, 5vw, 56px); }
+.more-head .lede{ margin-top:16px; }
+.grid{ display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:clamp(18px, 2vw, 30px); list-style:none; margin:0; padding:0; }
+.card .frame{ --h: 100vh; width:100%; aspect-ratio:4/5; background:#ddd; box-shadow: 0 1px 1px rgb(0 0 0 / .14), 0 10px 22px -10px rgb(0 0 0 / .35); }
+.card .frame:hover{ transform:translateY(-3px); box-shadow: 0 1px 1px rgb(0 0 0 / .14), 0 18px 30px -12px rgb(0 0 0 / .4); }
+.card h3{ margin-top:18px; font-size:1.18rem; line-height:1.12; font-weight:600; text-wrap:balance; }
+.card .yr{ margin-top:4px; font-size:.86rem; color:var(--soft); }
+.card .pr{ margin-top:10px; font-size:.9rem; font-weight:500; }
+.card .order{ display:inline-flex; gap:8px; margin-top:6px; font-size:.78rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); text-decoration:none; padding:8px 0; border-bottom:1px solid currentColor; }
+.more-foot{ display:flex; justify-content:center; margin-top:clamp(40px, 6vw, 64px); }
+
+/* ---------- How prints work ---------- */
+.how{ padding-top:clamp(30px, 6svh, 70px); }
+.how-grid{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1fr); gap:clamp(28px, 4.5vw, 72px); align-items:start; border-top:1px solid var(--line); padding-top:clamp(40px, 6vw, 72px); }
+.how .h2{ font-size:clamp(2.2rem, 3.6vw, 3.4rem); }
+.how-photo{ margin-top:28px; aspect-ratio:1; width:100%; object-fit:cover; box-shadow:0 1px 1px rgb(0 0 0 / .12), 0 16px 30px -16px rgb(0 0 0 / .4); }
+.facts{ list-style:none; margin:0; padding:0; }
+.facts li{ display:grid; grid-template-columns: 2.2rem 1fr; gap:6px; padding:18px 0; border-top:1px solid var(--line); }
+.facts li:last-child{ border-bottom:1px solid var(--line); }
+.facts .n{ font-family:var(--serif); font-weight:500; color:var(--accent); font-size:1.05rem; line-height:1.5; }
+.facts strong{ display:block; font-family:var(--serif); font-weight:600; font-size:1.3rem; line-height:1.25; }
+.facts span{ display:block; color:var(--soft); font-size:.98rem; margin-top:2px; }
+.prices h3{ font-size:1.3rem; font-weight:600; margin-bottom:10px; }
+.prices table{ width:100%; border-collapse:collapse; font-variant-numeric:lining-nums tabular-nums; }
+.prices th, .prices td{ padding:12px 0; border-top:1px solid var(--line); text-align:left; font-weight:400; }
+.prices tr:last-child td, .prices tr:last-child th{ border-bottom:1px solid var(--line); }
+.prices td{ text-align:right; font-family:var(--serif); font-weight:600; font-size:1.15rem; }
+.prices th span{ color:var(--soft); font-size:.88rem; margin-left:6px; }
+.prices .note{ margin-top:16px; font-size:.92rem; color:var(--soft); }
+.prices .btn{ margin-top:22px; }
+
+/* ---------- Sun catchers ---------- */
+.sun-grid{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(36px, 6vw, 100px); align-items:center; }
+.sun .h2{ margin-top:14px; }
+.sun .lede{ margin-top:22px; color:var(--ink); }
+.sun-price{ margin-top:30px; padding:20px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+.sun-price b{ font-family:var(--serif); font-weight:700; font-size:clamp(2.2rem, 3.4vw, 3rem); line-height:1; }
+.sun-price span{ color:var(--soft); font-size:.98rem; max-width:20rem; }
+.sun .btn-row{ margin-top:28px; }
+.sun-photos{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:clamp(14px, 1.6vw, 22px); list-style:none; margin:0; padding:0; }
+.sun-photos li:nth-child(2){ margin-top:clamp(28px, 6vw, 90px); }
+.sun-photos li:nth-child(3){ margin-top:calc(-1 * clamp(28px, 6vw, 90px)); }
+.sun-photos img{ width:100%; aspect-ratio:4/5; object-fit:cover; box-shadow:0 1px 1px rgb(0 0 0 / .12), 0 18px 34px -18px rgb(0 0 0 / .45); }
+
+/* ---------- About ---------- */
+.about-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(36px, 6vw, 100px); align-items:center; }
+.about-photo{ width:100%; aspect-ratio:1; object-fit:cover; box-shadow:0 1px 1px rgb(0 0 0 / .14), 0 26px 50px -24px rgb(0 0 0 / .5); }
+.about .h2{ margin-top:14px; }
+.say{ margin-top:12px; font-family:var(--serif); font-size:1.3rem; color:var(--accent); font-weight:500; }
+.about .body{ margin-top:22px; display:grid; gap:14px; font-size:1.08rem; color:var(--ink); max-width:34rem; }
+.creds-h{ margin-top:36px; font-size:.78rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--soft); }
+.creds{ list-style:none; margin:12px 0 0; padding:0; max-width:36rem; }
+.creds li{ padding:13px 0; border-top:1px solid var(--line); font-size:.98rem; line-height:1.45; }
+.creds li:last-child{ border-bottom:1px solid var(--line); }
+.creds strong{ font-weight:600; }
+
+/* ---------- Event ---------- */
+.event-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:clamp(36px, 6vw, 110px); align-items:center; }
+.date{ font-family:var(--serif); font-weight:800; line-height:.78; letter-spacing:-.035em; }
+.date .d{ display:block; font-size:clamp(7rem, 15.5vw, 15rem); white-space:nowrap; }
+.date .d em{ font-style:normal; color:var(--accent); }
+.date .y{ display:flex; align-items:center; gap:18px; font-size:clamp(1.2rem, 1.8vw, 1.6rem); font-weight:500; letter-spacing:.3em; margin-top:.6em; color:var(--soft); }
+.date .y::after{ content:""; flex:1; height:1px; background:var(--line); }
+.event .h2{ margin-top:14px; }
+.event-list{ list-style:none; margin:28px 0 0; padding:0; max-width:32rem; }
+.event-list li{ padding:14px 0; border-top:1px solid var(--line); font-size:1.05rem; }
+.event-list li:last-child{ border-bottom:1px solid var(--line); }
+.event-list span{ display:block; font-size:.76rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); margin-bottom:2px; }
+.event .btn-row{ margin-top:30px; }
+
+/* ---------- Contact ---------- */
+.contact-grid{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(36px, 6vw, 110px); align-items:start; }
+.contact .h2{ margin-top:14px; font-size:clamp(2.6rem, 5.6vw, 5.2rem); }
+.contact .lede{ margin-top:22px; color:var(--ink); }
+.contact .btn-row{ margin-top:32px; }
+.socials{ margin-top:24px; display:flex; gap:22px; flex-wrap:wrap; font-size:.95rem; }
+.socials a{ text-underline-offset:5px; text-decoration-thickness:1px; color:var(--soft); }
+.socials a:hover{ color:var(--ink); }
+form{ display:grid; gap:20px; padding-top:6px; }
+.field label{ display:block; font-size:.76rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--soft); margin-bottom:6px; }
+.field input, .field textarea, .field select{
+  width:100%; font:inherit; font-size:1.05rem; color:var(--ink); background:color-mix(in srgb, var(--field) 40%, transparent);
+  border:0; border-bottom:1px solid color-mix(in srgb, var(--ink) 45%, transparent); border-radius:0; padding:12px 12px;
+}
+.field textarea{ min-height:120px; resize:vertical; }
+.field input:focus, .field textarea:focus, .field select:focus{ outline:none; border-bottom-color:var(--accent); background:color-mix(in srgb, var(--field) 65%, transparent); }
+.field select option{ color:#111; }
+form .btn{ justify-self:start; }
+
+/* ---------- Footer ---------- */
+.foot{ padding: 40px var(--gutter) calc(36px + env(safe-area-inset-bottom)); }
+.foot-inner{ max-width:var(--maxw); margin:0 auto; border-top:1px solid var(--line); padding-top:30px;
+  display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; font-size:.9rem; color:var(--soft); }
+.foot .fname{ font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--ink); line-height:1.1; }
+.foot nav{ display:flex; gap:20px; flex-wrap:wrap; }
+.foot a{ text-underline-offset:5px; text-decoration-thickness:1px; }
+
+/* ---------- Lightbox ---------- */
+.lb{ border:0; padding:0; margin:auto; background:transparent; color:#f6efe6; max-width:min(1200px, calc(100vw - 32px)); max-height:calc(100svh - 32px); overflow:visible; }
+.lb::backdrop{ background:rgb(12 10 9 / .9); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.lb-inner{ display:grid; grid-template-columns:auto minmax(220px, 300px); gap:36px; align-items:end; }
+.lb .frame{ --h: calc(100svh - 120px); cursor:default; width:min(calc(min(100vw - 32px, 1200px) - 340px), calc(var(--h) * var(--ar))); }
+.lb .frame:hover{ transform:none; }
+.lb-copy{ padding-bottom:6px; --ink:#f6efe6; --soft:#d8cbbd; --accent:#f0c06a; --on:#1c1009; --line: rgb(246 239 230 / .25); color:var(--ink); }
+.lb-copy .year{ font-size:1.05rem; }
+.lb-copy h2{ margin-top:10px; font-size:clamp(1.8rem, 2.6vw, 2.5rem); line-height:1; text-wrap:balance; }
+.lb-copy .from{ margin-top:22px; }
+.lb-close{ position:fixed; top:14px; right:14px; width:48px; height:48px; border-radius:50%; border:1px solid rgb(246 239 230 / .45);
+  background:rgb(12 10 9 / .5); color:#f6efe6; font-size:1.6rem; line-height:1; cursor:pointer; display:grid; place-items:center; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1180px){
+  .grid{ grid-template-columns:repeat(3, minmax(0,1fr)); row-gap:44px; }
+  .how-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .how-grid .how-a{ grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:32px; align-items:end; }
+  .how-photo{ margin-top:0; max-width:340px; justify-self:end; }
+}
+@media (max-width: 960px){
+  .nav-links{ display:none; }
+  .menu-btn{ display:inline-flex; }
+}
+@media (max-width: 820px){
+  :root{ --nav-h: 60px; }
+  body{ font-size:16px; }
+  .brand span{ font-size:1.08rem; }
+  .brand img{ width:30px; height:30px; }
+  .btn-row{ flex-direction:column; align-items:stretch; width:100%; max-width:400px; margin-left:auto; margin-right:auto; }
+  .btn{ width:100%; }
+
+  /* hero: centred, painting inside the fold */
+  .hero{ padding: calc(var(--nav-h) + 22px) 16px 40px; text-align:center; }
+  .hero-inner{ grid-template-columns:minmax(0,1fr); grid-template-rows:none;
+    grid-template-areas: "kick" "title" "art" "lede" "cta" "meta"; }
+  .hero .kicker{ margin-bottom:12px; font-size:.72rem; }
+  .hero h1{ font-size:clamp(2.7rem, 12.4vw, 3.6rem); line-height:.9; }
+  .hero .art-col{ margin-top:24px; padding-bottom:0; }
+  .hero .frame{ --h: 37svh; }
+  .hero-label{ display:none; }
+  .hero .lede{ margin:24px auto 0; font-size:1.05rem; max-width:22rem; }
+  .hero .btn-row{ margin-top:22px; }
+  .hero .meta{ margin-top:16px; font-size:.86rem; }
+
+  .intro{ padding: 90px 16px 20px; }
+  .intro .h2{ font-size:clamp(2.5rem, 11vw, 3.4rem); }
+
+  .room{ padding: calc(var(--nav-h) + 26px) 16px 56px; text-align:center; }
+  .room-inner, .room.flip .room-inner{ grid-template-columns:minmax(0,1fr); gap:34px; }
+  .room.flip .art{ order:0; }
+  .room .frame{ --h: 56svh; max-width: 100%; }
+  .copy, .room.flip .copy{ justify-self:center; margin:0 auto; }
+  .year{ justify-content:center; }
+  .year::before{ content:""; width:40px; height:1px; background:currentColor; opacity:.7; }
+  .year::after{ width:40px; }
+  .title{ font-size:clamp(2.2rem, 10vw, 3rem); }
+  .desc{ margin-left:auto; margin-right:auto; font-size:1.02rem; }
+  .quote{ font-size:1.4rem; }
+
+  .section{ padding:76px 16px; }
+  .more-head{ flex-direction:column; align-items:flex-start; gap:0; }
+  .grid{ display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
+    margin:0 -16px; padding:4px 16px 18px; scroll-padding-inline:16px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .grid::-webkit-scrollbar{ display:none; }
+  .card{ flex:0 0 72%; scroll-snap-align:start; }
+  .more-foot .btn{ max-width:400px; }
+
+  .how-grid, .how-grid .how-a{ grid-template-columns:minmax(0,1fr); }
+  .how-photo{ justify-self:stretch; max-width:none; }
+  .prices .btn{ width:100%; }
+
+  .sun-grid, .about-grid, .event-grid, .contact-grid{ grid-template-columns:minmax(0,1fr); }
+  .sun-photos li:nth-child(2), .sun-photos li:nth-child(3){ margin-top:0; }
+  .sun-photos{ gap:12px; }
+  .date .d{ font-size:clamp(5rem, 31vw, 8rem); }
+  .date .y{ font-size:1.1rem; }
+  .event-copy{ text-align:left; }
+  form .btn{ justify-self:stretch; max-width:none; }
+  .foot-inner{ flex-direction:column; align-items:flex-start; }
+
+  .lb-inner{ grid-template-columns:minmax(0,1fr); gap:18px; }
+  .lb .frame{ --h: 62svh; width:min(calc(100vw - 32px), calc(var(--h) * var(--ar))); margin:0 auto; }
+  .lb-copy{ text-align:center; }
+  .lb-copy .year{ justify-content:center; }
+  .lb-copy .btn-row{ max-width:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true">
+  <div class="bd-imgs"><img class="bd-layer on" data-key="hero" src="../art/love-runs-toward-the-broken-800.jpg" alt="" decoding="async"></div>
+  <div class="bd-tint"></div>
+  <div class="bd-vig"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Crafts by the Bunny, home">
+    <img src="../art/logo-150.jpg" width="150" height="150" alt="">
+    <span>Crafts by the Bunny</span>
+  </a>
+  <nav aria-label="Main">
+    <ul class="nav-links">
+      <li><a href="#prints">Prints</a></li>
+      <li><a href="#sun-catchers">Sun catchers</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#event">Events</a></li>
+      <li><a class="nav-cta" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a></li>
+    </ul>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+</header>
+
+<div class="sheet" id="sheet" aria-label="Menu">
+  <ul>
+    <li><a href="#prints">Prints <span>from $14</span></a></li>
+    <li><a href="#how">How prints work</a></li>
+    <li><a href="#sun-catchers">Sun catchers</a></li>
+    <li><a href="#about">About Shai</a></li>
+    <li><a href="#event">Oct 9 event</a></li>
+    <li><a href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai <span class="arrow">&#8599;</span></a></li>
+  </ul>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero scene" data-scene="hero" aria-labelledby="h1">
+    <div class="hero-inner">
+      <p class="kicker">Shai Davenport &nbsp;/&nbsp; Mixed-media artist</p>
+      <h1 id="h1">Crafts by <span class="l2">the Bunny</span></h1>
+      <div class="art-col">
+        <div class="art">
+          <button class="frame crop" type="button" style="--ar:0.7943" data-lb data-slug="love-runs-toward-the-broken" data-title="Love Runs Toward the Broken" data-year="2026" data-price="14" data-ar="0.7943" data-crop="1" aria-label="See Love Runs Toward the Broken larger">
+            <img src="../art/love-runs-toward-the-broken-800.jpg" srcset="../art/love-runs-toward-the-broken-800.jpg 800w, ../art/love-runs-toward-the-broken-1600.jpg 1600w" sizes="(min-width: 821px) 46vw, 72vw" width="1200" height="1600" alt="Love Runs Toward the Broken, a mixed-media painting by Shai Davenport: a gold-outlined mosaic sky, a glowing beaded figure, a small tree, a breaking wave and a field of eyes, feathers and charms." fetchpriority="high" decoding="async">
+          </button>
+          <p class="hero-label"><strong>Love Runs Toward the Broken</strong>, 2026</p>
+        </div>
+      </div>
+      <p class="lede">Prints of one-of-a-kind mixed-media paintings, made in Corpus Christi, Texas. Acrylic, beads, feathers, charms and a lot of heart.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#prints">Shop prints</a>
+        <a class="btn btn-ghost" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
+      </div>
+      <p class="meta">Giclee prints from $14, plus shipping.</p>
+    </div>
+  </section>
+
+  <!-- PRINTS: intro + rooms -->
+  <section id="prints" class="intro scene" data-scene="apple" aria-labelledby="prints-h">
+    <p class="kicker reveal">The prints</p>
+    <h2 class="h2 reveal" id="prints-h" style="--d:.08s">Every piece sets the room.</h2>
+    <p class="lede reveal" style="--d:.16s">Scroll slowly. Each painting below takes over the color of this page, the way it would take over a wall at home. Most originals stay with Shai. The prints go home with you.</p>
+  </section>
+
+  <article class="room flip-no scene" data-scene="apple" id="r-apple" aria-labelledby="t-apple">
+    <div class="room-inner">
+      <div class="art">
+        <button class="frame" type="button" style="--ar:1.249" data-lb data-slug="the-apple-fell-far-from-the-tree" data-title="The Apple Fell Far From the Tree" data-year="2022" data-price="27" data-ar="1.249" aria-label="See The Apple Fell Far From the Tree larger">
+          <img src="../art/the-apple-fell-far-from-the-tree-800.jpg" srcset="../art/the-apple-fell-far-from-the-tree-800.jpg 800w, ../art/the-apple-fell-far-from-the-tree-1600.jpg 1600w" sizes="(min-width: 821px) 50vw, 92vw" width="1440" height="1153" alt="The Apple Fell Far From the Tree, painting by Shai Davenport: a blazing sun with a dark center over green hills, a winding river and an apple tree wrapped by a snake." loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="copy">
+        <p class="year reveal">2022</p>
+        <h3 class="title reveal" id="t-apple" style="--d:.06s">The Apple Fell Far From the Tree</h3>
+        <blockquote class="quote reveal" style="--d:.14s">&ldquo;Change always starts with the individual.&rdquo;<cite>Shai, on this painting</cite></blockquote>
+        <p class="desc reveal" style="--d:.2s">Painted to break ties with generational patterns.</p>
+        <div class="buy reveal" style="--d:.26s">
+          <p class="from">Prints from <b>$27</b></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+            <button class="btn btn-ghost" type="button" data-lb-ref="r-apple">See it closer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="room flip scene" data-scene="aband" id="r-aband" aria-labelledby="t-aband">
+    <div class="room-inner">
+      <div class="art">
+        <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="abandonment" data-title="Abandonment" data-year="2021" data-price="27" data-ar="0.8" aria-label="See Abandonment larger">
+          <img src="../art/abandonment-800.jpg" srcset="../art/abandonment-800.jpg 800w, ../art/abandonment-1600.jpg 1600w" sizes="(min-width: 821px) 42vw, 80vw" width="1440" height="1800" alt="Abandonment, painting by Shai Davenport: a keyhole doorway into a child's room with a crib, a large blue eye shedding tears, set in a swirling blue and violet sky." loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="copy">
+        <p class="year reveal">2021</p>
+        <h3 class="title reveal" id="t-aband" style="--d:.06s">Abandonment</h3>
+        <p class="desc reveal" style="--d:.14s">What the word abandonment felt like, painted.</p>
+        <div class="buy reveal" style="--d:.22s">
+          <p class="from">Prints from <b>$27</b></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+            <button class="btn btn-ghost" type="button" data-lb-ref="r-aband">See it closer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="room scene" data-scene="mother" id="r-mother" aria-labelledby="t-mother">
+    <div class="room-inner">
+      <div class="art">
+        <button class="frame" type="button" style="--ar:1.238" data-lb data-slug="mother-maiden-and-sons" data-title="Mother, Maiden &amp; Sons" data-year="2025" data-price="27" data-ar="1.238" aria-label="See Mother, Maiden and Sons larger">
+          <img src="../art/mother-maiden-and-sons-800.jpg" srcset="../art/mother-maiden-and-sons-800.jpg 800w, ../art/mother-maiden-and-sons-1600.jpg 1600w" sizes="(min-width: 821px) 50vw, 92vw" width="3246" height="2622" alt="Mother, Maiden and Sons, painting by Shai Davenport: a hand reaching down a strand of DNA to a butterfly, an astronaut and a deep sea diver on either side, planets above and a row of flowers below." loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="copy">
+        <p class="year reveal">2025</p>
+        <h3 class="title reveal" id="t-mother" style="--d:.06s">Mother, Maiden &amp; Sons</h3>
+        <p class="desc reveal" style="--d:.14s">Painted as a meditation on healing her inner child, so she could be the mother she wanted to be.</p>
+        <div class="buy reveal" style="--d:.22s">
+          <p class="from">Prints from <b>$27</b></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+            <button class="btn btn-ghost" type="button" data-lb-ref="r-mother">See it closer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="room flip scene" data-scene="dream" id="r-dream" aria-labelledby="t-dream">
+    <div class="room-inner">
+      <div class="art">
+        <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="the-dream-messenger" data-title="The Dream Messenger" data-year="2021" data-price="27" data-ar="0.8" aria-label="See The Dream Messenger larger">
+          <img src="../art/the-dream-messenger-800.jpg" srcset="../art/the-dream-messenger-800.jpg 800w, ../art/the-dream-messenger-1600.jpg 1600w" sizes="(min-width: 821px) 42vw, 80vw" width="1440" height="1799" alt="The Dream Messenger, painting by Shai Davenport: a turquoise owl with a crescent moon crown, a heart and a green eye on its chest, perched among white branches beside a tall building." loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="copy">
+        <p class="year reveal">2021</p>
+        <h3 class="title reveal" id="t-dream" style="--d:.06s">The Dream Messenger</h3>
+        <p class="desc reveal" style="--d:.14s">Based on a dream about an owl, a 63-floor building and a girl who was not what she seemed.</p>
+        <p class="desc reveal" style="--d:.18s">The original has sold. Prints are available.</p>
+        <div class="buy reveal" style="--d:.24s">
+          <p class="from">Prints from <b>$27</b></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+            <button class="btn btn-ghost" type="button" data-lb-ref="r-dream">See it closer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="room scene" data-scene="diver" id="r-diver" aria-labelledby="t-diver">
+    <div class="room-inner">
+      <div class="art">
+        <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="holy-diver" data-title="Holy Diver" data-year="2024" data-price="27" data-ar="0.8" aria-label="See Holy Diver larger">
+          <img src="../art/holy-diver-800.jpg" srcset="../art/holy-diver-800.jpg 800w, ../art/holy-diver-1600.jpg 1600w" sizes="(min-width: 821px) 42vw, 80vw" width="1440" height="1800" alt="Holy Diver, painting by Shai Davenport: an underwater chasm with a rainbow ribbon, a diver, a tiger and a red heart sinking toward a glowing orb, with mermaids and fairies on the rock walls." loading="lazy" decoding="async">
+        </button>
+      </div>
+      <div class="copy">
+        <p class="year reveal">2024</p>
+        <h3 class="title reveal" id="t-diver" style="--d:.06s">Holy Diver</h3>
+        <p class="desc reveal" style="--d:.14s">Painted to honor her second son, after the song he always asked for.</p>
+        <div class="buy reveal" style="--d:.22s">
+          <p class="from">Prints from <b>$27</b></p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a>
+            <button class="btn btn-ghost" type="button" data-lb-ref="r-diver">See it closer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- MORE PRINTS -->
+  <section class="section more scene" data-scene="paper" id="more-prints" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="more-head">
+        <div>
+          <p class="kicker">More from the collection</p>
+          <h2 class="h2" id="more-h" style="margin-top:12px">More prints</h2>
+        </div>
+        <p class="lede">Zodiac fairies, a swan-winged Venus, a heart with a halo. Tap any piece to see it larger.</p>
+      </div>
+      <ul class="grid">
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="pisces" data-title="Pisces" data-year="2023" data-price="27" data-ar="0.8" aria-label="See Pisces larger">
+            <img src="../art/pisces-800.jpg" width="1440" height="1800" alt="Pisces, painting by Shai Davenport: a fairy mermaid on a dock holding a mirror, a giant eye and a blue planet in a purple sky, fish swimming below." loading="lazy" decoding="async">
+          </button>
+          <h3>Pisces</h3><p class="yr">2023</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="life-of-venus" data-title="Life of Venus" data-year="2022" data-price="27" data-ar="0.8" aria-label="See Life of Venus larger">
+            <img src="../art/life-of-venus-800.jpg" width="1440" height="1800" alt="Life of Venus, painting by Shai Davenport: a woman standing in a pink shell before a white crane with outstretched wings and a golden moon." loading="lazy" decoding="async">
+          </button>
+          <h3>Life of Venus</h3><p class="yr">2022</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.801" data-lb data-slug="the-last-sunrise" data-title="The Last Sunrise" data-year="2021" data-price="27" data-ar="0.801" aria-label="See The Last Sunrise larger">
+            <img src="../art/the-last-sunrise-800.jpg" width="1440" height="1798" alt="The Last Sunrise, painting by Shai Davenport: a dripping blue eye above a golden sun and a stone well, with rainbows across a red and violet sky." loading="lazy" decoding="async">
+          </button>
+          <h3>The Last Sunrise</h3><p class="yr">2021</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.838" data-lb data-slug="the-biggest-hearts" data-title="The Biggest Hearts Carry the Heaviest Burdens" data-year="2020" data-price="27" data-ar="0.838" aria-label="See The Biggest Hearts Carry the Heaviest Burdens larger">
+            <img src="../art/the-biggest-hearts-800.jpg" width="1440" height="1718" alt="The Biggest Hearts Carry the Heaviest Burdens, painting by Shai Davenport: a red heart with a halo and a crying eye falling toward a splash of water, between a sunflower and a lily." loading="lazy" decoding="async">
+          </button>
+          <h3>The Biggest Hearts Carry the Heaviest Burdens</h3><p class="yr">2020</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="balance-of-fate" data-title="Balance of Fate" data-year="2021" data-price="27" data-ar="0.8" aria-label="See Balance of Fate larger">
+            <img src="../art/balance-of-fate-800.jpg" width="1440" height="1800" alt="Balance of Fate, painting by Shai Davenport: a rainbow arch over a tilted balance, planets, owls and bubbles holding fruit." loading="lazy" decoding="async">
+          </button>
+          <h3>Balance of Fate</h3><p class="yr">2021</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+        <li class="card">
+          <button class="frame" type="button" style="--ar:0.8" data-lb data-slug="aries" data-title="Aries" data-year="2024" data-price="27" data-ar="0.8" aria-label="See Aries larger">
+            <img src="../art/aries-800.jpg" width="1440" height="1800" alt="Aries, painting by Shai Davenport: two winged fairies beside a lava lamp volcano under a cobalt sky, a tree on an island below." loading="lazy" decoding="async">
+          </button>
+          <h3>Aries</h3><p class="yr">2024</p><p class="pr">Prints from $27</p>
+          <a class="order" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print <span class="arrow">&rarr;</span></a>
+        </li>
+      </ul>
+      <div class="more-foot"><a class="btn btn-primary" href="https://www.instagram.com/craftsbythebunny/" target="_blank" rel="noopener">See all prints</a></div>
+    </div>
+  </section>
+
+  <!-- HOW PRINTS WORK -->
+  <section class="section how scene" data-scene="paper" id="how" aria-labelledby="how-h">
+    <div class="wrap how-grid">
+      <div class="how-a">
+        <div>
+          <p class="kicker">How prints work</p>
+          <h2 class="h2" id="how-h" style="margin-top:12px">Made to last, priced by size.</h2>
+        </div>
+        <img class="how-photo" src="../art/prints-held-800.jpg" width="800" height="800" alt="A hand holding two giclee prints of The Biggest Hearts Carry the Heaviest Burdens with white paper borders." loading="lazy" decoding="async">
+      </div>
+      <ol class="facts">
+        <li><span class="n">1</span><div><strong>Giclee prints</strong><span>Printed from Shai's paintings with pigment inks.</span></div></li>
+        <li><span class="n">2</span><div><strong>100% cotton paper</strong><span>Soft, heavy paper that holds the color.</span></div></li>
+        <li><span class="n">3</span><div><strong>Priced by size</strong><span>Sizes follow each painting's shape, so most pieces start at 8 x 10.</span></div></li>
+        <li><span class="n">4</span><div><strong>Order by message</strong><span>Tell Shai the piece and the size. Shipping is added at checkout.</span></div></li>
+      </ol>
+      <div class="prices">
+        <h3>A few sizes from the price list</h3>
+        <table>
+          <caption class="vh">Print sizes in inches and prices</caption>
+          <tbody>
+            <tr><th scope="row">5 x 7</th><td>$14</td></tr>
+            <tr><th scope="row">8 x 10</th><td>$27</td></tr>
+            <tr><th scope="row">11 x 14</th><td>$51</td></tr>
+            <tr><th scope="row">16 x 20</th><td>$90</td></tr>
+            <tr><th scope="row">24 x 36</th><td>$238</td></tr>
+            <tr><th scope="row">40 x 60 <span>largest</span></th><td>$660</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Plus shipping. More sizes in between, just ask.</p>
+        <a class="btn btn-ghost" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Ask about a size</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUN CATCHERS -->
+  <section class="section sun scene" data-scene="sun" id="sun-catchers" aria-labelledby="sun-h">
+    <div class="wrap sun-grid">
+      <div>
+        <p class="kicker">Hand-beaded</p>
+        <h2 class="h2" id="sun-h">Sun catchers</h2>
+        <p class="lede">Beads, crystals and a painted pendant, made to hang in a window and throw color around the room. Most are one-offs, and custom orders are welcome: your colors, your stones, even your pet.</p>
+        <div class="sun-price"><b>Starts at $15</b><span>7 inch circular reflective pendant. Custom colors, painted images and crystal or stone beads add a little. Plus shipping.</span></div>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Ask for a custom one</a>
+        </div>
+      </div>
+      <ul class="sun-photos">
+        <li><img src="../art/sc-pet-dog-800.jpg" width="646" height="800" alt="Round sun catcher with a hand-painted dog portrait on a beaded strand, rainbow light behind it." loading="lazy" decoding="async"></li>
+        <li><img src="../art/sc-butterfly-800.jpg" width="600" height="800" alt="Beaded sun catcher with an iridescent butterfly charm and a crystal drop, scattering small rainbows." loading="lazy" decoding="async"></li>
+        <li><img src="../art/sc-tree-of-life-800.jpg" width="640" height="800" alt="Round sun catcher painted with a green tree of life, hanging by a sunny window." loading="lazy" decoding="async"></li>
+        <li><img src="../art/sc-monstera-800.jpg" width="687" height="800" alt="Round blue sun catcher with a monstera leaf, hanging in front of window blinds." loading="lazy" decoding="async"></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about scene" data-scene="about" id="about" aria-labelledby="about-h">
+    <div class="wrap about-grid">
+      <img class="about-photo" src="../art/shai-white-dress-paintings-800.jpg" width="800" height="800" alt="Shai Davenport in a white dress and bunny ears, singing into a microphone beside a fence lined with her paintings." loading="lazy" decoding="async">
+      <div>
+        <p class="kicker">About the artist</p>
+        <h2 class="h2" id="about-h">Hi, I'm Shai.</h2>
+        <p class="say">Say it Sh-AYYY.</p>
+        <div class="body">
+          <p>I'm a multi-media artist in Corpus Christi, a dedicated mother and wife, and an official hype-woman. I start with acrylic and keep going: beads, feathers, charms, collage, gold-outlined shapes.</p>
+          <p>My paintings carry dreams, poems, songs and the people I love. Prints let them hang in your home too.</p>
+        </div>
+        <p class="creds-h">Along the way</p>
+        <ul class="creds">
+          <li><strong>The Bend Magazine Local's List Winner 2026</strong>, Multi-Media Artist</li>
+          <li>Guest on the <strong>Corpus Christi Originals Podcast</strong>, episode 130</li>
+          <li>Exhibited at the <strong>Art Center of Corpus Christi</strong>: Pawtrait Studio 2024 and the Meet the Parents show</li>
+          <li>PTA Reflections coordinator and co-host of <strong>ArtVenture Culture Fest</strong></li>
+          <li>Arts for At-Risk Youth talk with CC Medical Center, Raps &amp; Apps CC and Texas Cultural Trust, August 2026</li>
+          <li><strong>5,000+</strong> followers on Instagram and Facebook</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENT -->
+  <section class="section event scene" data-scene="event" id="event" aria-labelledby="event-h">
+    <div class="wrap event-grid">
+      <p class="date" aria-hidden="true"><span class="d"><em>Oct</em> 9</span><span class="y">2026</span></p>
+      <div class="event-copy">
+        <p class="kicker">Next event</p>
+        <h2 class="h2" id="event-h">ArtVenture Culture Fest</h2>
+        <ul class="event-list">
+          <li><span>When</span>October 9, 2026</li>
+          <li><span>Where</span>Art Center of Corpus Christi, 100 N. Shoreline Blvd</li>
+          <li><span>Cost</span>Free entry</li>
+          <li><span>Shai</span>Co-hosting. Come find her and say hi.</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=Art+Center+of+Corpus+Christi+100+N+Shoreline+Blvd" target="_blank" rel="noopener">Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact scene" data-scene="contact" id="contact" aria-labelledby="contact-h">
+    <div class="wrap contact-grid">
+      <div>
+        <p class="kicker">Commissions and questions</p>
+        <h2 class="h2" id="contact-h">Let's make something.</h2>
+        <p class="lede">A commission, a custom sun catcher, a print size you don't see here, or just hello. Messages go straight to Shai.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/craftsbythebunny/" target="_blank" rel="noopener">Instagram @craftsbythebunny</a>
+          <a href="https://www.facebook.com/craftsbythebunny/" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+      <form id="contact-form" novalidate>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-contact">Email or phone</label><input id="f-contact" name="contact" autocomplete="email" required></div>
+        <div class="field"><label for="f-about">I'm asking about</label>
+          <select id="f-about" name="about"><option>A print</option><option>A commission</option><option>A sun catcher</option><option>Something else</option></select></div>
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message"></textarea></div>
+        <button class="btn btn-primary" type="submit">Send to Shai</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="foot scene" data-scene="contact">
+    <div class="foot-inner">
+      <div>
+        <p class="fname">Crafts by the Bunny</p>
+        <p>Shai Davenport, multi-media artist. Corpus Christi, Texas.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="#prints">Prints</a>
+        <a href="#sun-catchers">Sun catchers</a>
+        <a href="https://www.instagram.com/craftsbythebunny/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/craftsbythebunny/" target="_blank" rel="noopener">Facebook</a>
+      </nav>
+      <p>&copy; 2026 Crafts by the Bunny</p>
+    </div>
+  </footer>
+</main>
+
+<dialog class="lb" id="lb" aria-labelledby="lb-title">
+  <button class="lb-close" type="button" aria-label="Close">&times;</button>
+  <div class="lb-inner">
+    <div class="frame" id="lb-frame"><img id="lb-img" alt=""></div>
+    <div class="lb-copy">
+      <p class="year" id="lb-year"></p>
+      <h2 id="lb-title"></h2>
+      <p class="from" id="lb-from"></p>
+      <div class="btn-row"><a class="btn btn-primary" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Order a print</a></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* One palette per room, sampled from the painting's catalog palette. */
+  var SCENES = {
+    hero:   { img:'love-runs-toward-the-broken', field:'#24130e', tint:.42, vig:.5,  ink:'#fbf1e6', soft:'#efd7c2', accent:'#eaa95c', on:'#1c1009' },
+    apple:  { img:'the-apple-fell-far-from-the-tree', field:'#0c2014', tint:.46, vig:.5, ink:'#f3f7e6', soft:'#d3e4c9', accent:'#74cfa1', on:'#07180e' },
+    aband:  { img:'abandonment', field:'#0a1236', tint:.42, vig:.5, ink:'#eef2ff', soft:'#cdd7f4', accent:'#55c0ea', on:'#04112a' },
+    mother: { img:'mother-maiden-and-sons', field:'#2c0e0a', tint:.5, vig:.5, ink:'#fff4e2', soft:'#f3dabd', accent:'#ead98f', on:'#241304' },
+    dream:  { img:'the-dream-messenger', field:'#0d1530', tint:.42, vig:.5, ink:'#ecfbf8', soft:'#c6e6e2', accent:'#45ddd0', on:'#03211e' },
+    diver:  { img:'holy-diver', field:'#090d10', tint:.42, vig:.5, ink:'#e9f4f7', soft:'#c0d6de', accent:'#5cc3e3', on:'#04161d' },
+    paper:  { img:null, field:'#f1ebe1', tint:1, vig:0, ink:'#1d1915', soft:'#5a5048', accent:'#8a2430', on:'#fbf3ea' },
+    sun:    { img:'sc-pet-dog', light:true, field:'#eef0ec', tint:.58, vig:0, ink:'#13202a', soft:'#34424c', accent:'#13202a', on:'#f3f5f1' },
+    about:  { img:null, field:'#f3e6d8', tint:1, vig:0, ink:'#24160f', soft:'#5b4234', accent:'#9c3f37', on:'#fff4ea' },
+    event:  { img:null, field:'#1f1c45', tint:1, vig:.35, ink:'#f6efd9', soft:'#d8d1e8', accent:'#ead98f', on:'#1f1c45' },
+    contact:{ img:'calm', field:'#0f1440', tint:.44, vig:.5, ink:'#f2f1ff', soft:'#d2d3f0', accent:'#ebc95e', on:'#17140a' }
+  };
+  var VARS = ['field','ink','soft','accent','on','tint','vig'];
+  var imgs = document.querySelector('.bd-imgs');
+  var layers = { hero: imgs.querySelector('[data-key="hero"]') };
+  var meta = document.querySelector('meta[name="theme-color"]');
+
+  function layerFor(key){
+    var s = SCENES[key];
+    if (!s || !s.img) return null;
+    if (layers[key]) return layers[key];
+    var im = new Image();
+    im.alt = ''; im.decoding = 'async';
+    im.className = 'bd-layer' + (s.light ? ' is-light' : '');
+    im.src = '../art/' + s.img + '-800.jpg';
+    imgs.appendChild(im);
+    layers[key] = im;
+    return im;
+  }
+
+  var current = 'hero', currentEl = document.querySelector('.hero');
+  function setScene(key, el){
+    currentEl = el || currentEl;
+    if (key === current) return;
+    current = key;
+    var s = SCENES[key];
+    VARS.forEach(function(v){ root.style.setProperty('--' + v, s[v]); });
+    if (meta) meta.setAttribute('content', s.field);
+    var L = layerFor(key);
+    Object.keys(layers).forEach(function(k){ layers[k].classList.toggle('on', layers[k] === L); });
+    tick();
+  }
+
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  if ('IntersectionObserver' in window){
+    /* the scene crossing the middle of the screen owns the colors */
+    var mid = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) setScene(e.target.dataset.scene, e.target); });
+    }, { rootMargin:'-50% 0px -50% 0px', threshold:0 });
+    scenes.forEach(function(s){ mid.observe(s); });
+
+    /* warm up the next room's background before it arrives */
+    var pre = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ layerFor(e.target.dataset.scene); pre.unobserve(e.target); } });
+    }, { rootMargin:'120% 0px 120% 0px' });
+    scenes.forEach(function(s){ pre.observe(s); });
+
+    /* title + copy reveals */
+    var rev = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var t = e.target; t.classList.add('in'); rev.unobserve(t);
+        if (t.classList.contains('title')) setTimeout(function(){ t.classList.add('done'); }, 1400);
+      });
+    }, { rootMargin:'0px 0px -12% 0px', threshold:.15 });
+    document.querySelectorAll('.reveal').forEach(function(r){ rev.observe(r); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(r){ r.classList.add('in'); });
+  }
+
+  /* subtle parallax: the blurred wall drifts slower than the painting */
+  var ticking = false, nav = document.getElementById('nav');
+  function tick(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){
+      ticking = false;
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+      if (reduce.matches || root.classList.contains('static')) return;
+      var L = layers[current]; if (!L || !currentEl) return;
+      var r = currentEl.getBoundingClientRect();
+      var p = (innerHeight / 2 - r.top) / Math.max(r.height, 1);
+      p = Math.max(0, Math.min(1, p));
+      L.style.transform = 'translate3d(0,' + ((0.5 - p) * 70).toFixed(1) + 'px,0) scale(1.06)';
+    });
+  }
+  window.addEventListener('scroll', tick, { passive:true });
+  window.addEventListener('resize', tick);
+  tick();
+
+  /* mobile menu */
+  var menuBtn = document.querySelector('.menu-btn'), sheet = document.getElementById('sheet');
+  function setMenu(open){
+    sheet.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!sheet.classList.contains('open')); });
+  sheet.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && sheet.classList.contains('open')) setMenu(false); });
+
+  /* lightbox */
+  var lb = document.getElementById('lb'), lbFrame = document.getElementById('lb-frame'), lbImg = document.getElementById('lb-img');
+  function openLb(t){
+    var slug = t.dataset.slug;
+    lbFrame.className = 'frame' + (t.dataset.crop ? ' crop' : '');
+    lbFrame.style.setProperty('--ar', t.dataset.ar);
+    lbImg.src = '../art/' + slug + '-1600.jpg';
+    var src = t.querySelector('img'); lbImg.alt = src ? src.alt : '';
+    document.getElementById('lb-year').textContent = t.dataset.year;
+    document.getElementById('lb-title').textContent = t.dataset.title;
+    document.getElementById('lb-from').innerHTML = 'Prints from <b>$' + t.dataset.price + '</b>';
+    if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open', '');
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-lb]');
+    if (!t){ var ref = e.target.closest('[data-lb-ref]'); if (ref) t = document.getElementById(ref.dataset.lbRef).querySelector('[data-lb]'); }
+    if (t){ e.preventDefault(); openLb(t); }
+  });
+  lb.querySelector('.lb-close').addEventListener('click', function(){ lb.close(); });
+  lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+
+  /* demo form */
+  document.getElementById('contact-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert("Thanks for checking out this demo! The form isn't live yet. On the real site it sends straight to Shai's inbox. Questions about the site? Call or text Zonkel Media at 361-658-2912 anytime.");
+  });
+
+  /* Static mode: every section paints its own room (full-page captures, print). */
+  window.makeStatic = function(){
+    root.classList.add('static');
+    scenes.forEach(function(sec){
+      var s = SCENES[sec.dataset.scene];
+      VARS.forEach(function(v){ sec.style.setProperty('--' + v, s[v]); });
+      if (sec.querySelector(':scope > .sbg')) return;
+      var bg = document.createElement('div'); bg.className = 'sbg'; bg.setAttribute('aria-hidden', 'true');
+      if (s.img){ var im = document.createElement('img'); im.src = '../art/' + s.img + '-800.jpg'; im.alt = ''; if (s.light) im.className = 'is-light'; bg.appendChild(im); }
+      bg.appendChild(document.createElement('i')); bg.appendChild(document.createElement('b'));
+      sec.insertBefore(bg, sec.firstChild);
+    });
+    document.querySelectorAll('.reveal').forEach(function(r){ r.classList.add('in'); });
+    document.querySelectorAll('img[loading="lazy"]').forEach(function(i){ i.loading = 'eager'; });
+  };
+  if (/[?&]static\b/.test(location.search)) window.makeStatic();
+})();
+</script>
+</body>
+</html>
