@@ -136,9 +136,6 @@ html:not([data-scene="hero"]) .hero-glow{opacity:0}
 .glass .sheen{position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(118deg, rgba(255,250,238,.16) 0%, rgba(255,250,238,0) 30%, rgba(255,250,238,0) 72%, rgba(255,250,238,.1) 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),inset 0 18px 30px -18px rgba(60,35,15,.35),inset 0 -10px 24px -14px rgba(60,35,15,.22)}
 .window.no-gl .glass .sheen{background:linear-gradient(135deg, rgba(255,249,236,.42), rgba(255,246,230,.22) 50%, rgba(252,240,222,.12))}
 .window.no-gl .glass canvas{display:none}
-.tilt{position:absolute;left:50%;bottom:16px;z-index:3;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:0 15px;border-radius:999px;border:1px solid rgba(42,33,29,.18);background:rgba(253,249,242,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:500 13.5px/1 var(--body);color:#2a211d;cursor:pointer;white-space:nowrap;transition:opacity .4s}
-.tilt svg{width:16px;height:16px}
-.tilt.gone{opacity:0;pointer-events:none}
 
 /* ---------- prism flecks on light sections ---------- */
 .fl,.hf{border-radius:50%;pointer-events:none}
@@ -208,26 +205,41 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
 .geo-rule svg{width:46px;height:46px;flex:none;overflow:visible}
 .geo-rule .ln{stroke:var(--gold);stroke-width:1.1;vector-effect:non-scaling-stroke}
 
-/* ---------- how prints work ---------- */
+/* ---------- how prints work + interactive size chart ---------- */
 .how{padding-top:clamp(60px,7vw,100px)}
-.how-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,4.5vw,72px);align-items:start}
+.how-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);grid-template-areas:"head facts" "photo chart";gap:clamp(40px,5vw,72px) clamp(28px,4.5vw,72px);align-items:start}
+.how-head{grid-area:head}
 .how h2{font-size:clamp(36px,3.6vw,54px)}
-.how-photo{margin-top:28px;aspect-ratio:1;width:100%;object-fit:cover;border-radius:3px;box-shadow:0 1px 1px rgb(0 0 0 / .12),0 16px 30px -16px rgb(0 0 0 / .4)}
-.facts{list-style:none;margin:0;padding:0}
-.facts li{display:grid;grid-template-columns:2.2rem 1fr;gap:6px;padding:18px 0;border-top:1px solid var(--line)}
-.facts li:last-child{border-bottom:1px solid var(--line)}
+.how-photo{grid-area:photo;width:100%;aspect-ratio:1;object-fit:cover;border-radius:3px;box-shadow:0 1px 1px rgb(0 0 0 / .12),0 16px 30px -16px rgb(0 0 0 / .4)}
+.facts{grid-area:facts;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(24px,3vw,44px)}
+.facts li{display:grid;grid-template-columns:2rem 1fr;gap:6px;padding:18px 0;border-top:1px solid var(--line)}
+.facts li:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
 .facts .n{font-family:var(--display);color:var(--accent);font-size:18px;line-height:1.4}
 .facts strong{display:block;font-family:var(--display);font-weight:400;font-size:23px;line-height:1.25}
 .facts span{display:block;color:var(--soft);font-size:16px;margin-top:2px}
-.prices h3{font-size:23px;margin-bottom:10px}
-.prices table{width:100%;border-collapse:collapse;font-variant-numeric:lining-nums tabular-nums}
-.prices th,.prices td{padding:12px 0;border-top:1px solid var(--line);text-align:left;font-weight:400}
-.prices tr:last-child td,.prices tr:last-child th{border-bottom:1px solid var(--line)}
-.prices th{font-size:16.5px}
-.prices td{text-align:right;font-family:var(--display);font-size:21px}
-.prices th span{color:var(--soft);font-size:14px;margin-left:6px}
-.prices .note{margin:16px 0 0;font-size:15px;color:var(--soft)}
-.prices .btn{margin-top:22px}
+.chart{grid-area:chart;display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,250px);grid-template-areas:"cap ladder" "tbl ladder" "note ladder" "cta ladder";column-gap:clamp(28px,4vw,60px);align-items:start}
+.chart h3{grid-area:cap;font-size:23px;margin-bottom:12px}
+.chart table{grid-area:tbl;width:100%;border-collapse:collapse;font-variant-numeric:lining-nums tabular-nums}
+.chart thead th{font:500 12.5px/1 var(--body);letter-spacing:.17em;text-transform:uppercase;color:var(--soft);text-align:left;padding:0 10px 12px}
+.chart thead th:last-child{text-align:right}
+.chart tbody th,.chart tbody td{padding:12px 10px;border-top:1px solid var(--line);text-align:left;font-weight:400;transition:background-color .25s,color .25s}
+.chart tbody tr:last-child th,.chart tbody tr:last-child td{border-bottom:1px solid var(--line)}
+.chart tbody th{font-size:16.5px}
+.chart tbody td{text-align:right;font-family:var(--display);font-size:21px}
+.chart tbody th span{color:var(--soft);font-size:14px;margin-left:6px}
+.chart tbody tr{cursor:pointer}
+.chart tbody tr:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.chart tbody tr.on th,.chart tbody tr.on td{background:color-mix(in srgb, var(--accent) 13%, transparent);color:var(--ink)}
+.chart tbody tr.on th{font-weight:500}
+.chart .note{grid-area:note;margin:16px 0 0;font-size:15px;color:var(--soft)}
+.chart .btn{grid-area:cta;justify-self:start;margin-top:22px}
+.ladder{grid-area:ladder;align-self:end;margin:0}
+.ladder svg{display:block;width:100%;height:auto;overflow:visible}
+.ladder rect{fill:transparent;pointer-events:all;cursor:pointer;stroke:color-mix(in srgb, var(--ink) 38%, transparent);stroke-width:2.2;vector-effect:non-scaling-stroke;transition:fill .25s,stroke .25s,stroke-width .25s}
+.ladder rect.on{fill:color-mix(in srgb, var(--accent) 16%, transparent);stroke:var(--accent);stroke-width:3}
+.ladder text{font:500 24px var(--body);fill:var(--soft);pointer-events:none}
+.ladder figcaption{margin-top:12px;font-size:14.5px;color:var(--soft);text-align:right}
+.ladder figcaption b{font-weight:500;color:var(--ink)}
 
 /* ---------- sun catchers ---------- */
 .sun-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(36px,6vw,100px);align-items:center}
@@ -340,16 +352,13 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
 /* ---------- responsive ---------- */
 @media (max-width:1180px){
   .nav-links{gap:22px}
-  .how-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .how-a{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end}
-  .how-photo{margin-top:0;max-width:360px;justify-self:end}
 }
 @media (max-width:1023px){
   .nav-links,.nav-cta{display:none}
   .menu-btn{display:inline-flex}
   .hf{left:var(--mx);top:var(--my)}
   .hero-inner{grid-template-columns:1fr;justify-items:center;text-align:center;gap:30px;padding-top:96px;padding-bottom:64px}
-  .window{order:-1;height:auto;width:min(60vw,440px);aspect-ratio:.78}
+  .window{order:-1;height:clamp(300px,42svh,560px);width:auto;aspect-ratio:.78}
   .window::after{left:-28px;right:-28px}
   .hero-copy{max-width:640px;display:flex;flex-direction:column;align-items:center}
   .hero .cta-row{flex-direction:column;align-items:stretch;width:100%;max-width:400px}
@@ -388,8 +397,14 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
   .grid{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;margin:0 calc(-1 * var(--gutter));padding:4px var(--gutter) 18px;scroll-padding-inline:var(--gutter);scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .grid::-webkit-scrollbar{display:none}
   .card{flex:0 0 72%;scroll-snap-align:start}
-  .how-grid,.how-a{grid-template-columns:minmax(0,1fr)}
-  .how-photo{justify-self:stretch;max-width:none}
+  .how-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "photo" "facts" "chart";gap:30px}
+  .facts{grid-template-columns:minmax(0,1fr)}
+  .facts li:nth-last-child(-n+2){border-bottom:0}
+  .facts li:last-child{border-bottom:1px solid var(--line)}
+  .chart{grid-template-columns:minmax(0,1fr) 112px;grid-template-areas:"cap cap" "tbl ladder" "note note" "cta cta";column-gap:18px;margin-top:10px}
+  .ladder text{display:none}
+  .ladder figcaption{font-size:13px;text-align:center}
+  .chart .btn{justify-self:stretch}
   .sun-grid{grid-template-columns:minmax(0,1fr)}
   .sun-photos{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;margin:0 calc(-1 * var(--gutter));padding:4px var(--gutter) 14px;scroll-padding-inline:var(--gutter);scrollbar-width:none}
   .sun-photos::-webkit-scrollbar{display:none}
@@ -400,15 +415,17 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
   body{font-size:16.5px}
   .brand img{width:34px;height:34px}
   .brand span{font-size:18px}
-  .hero-inner{padding-top:78px;padding-bottom:52px;gap:22px;min-height:100svh}
-  .window{width:min(72vw,300px);aspect-ratio:.8}
+  .hero-inner{padding-top:72px;padding-bottom:40px;gap:18px;min-height:100svh;align-content:center}
+  .window{height:clamp(160px,31svh,330px);width:auto;aspect-ratio:.8}
   .window::before{inset:-10px -10px 0 -10px}
   .kicker{font-size:11.5px;letter-spacing:.15em}
-  .hero h1{font-size:clamp(44px,12.4vw,56px);margin:.26em 0 .3em}
-  .lede{font-size:16.5px;margin-bottom:1.5em}
+  .hero h1{font-size:clamp(42px,11.6vw,52px);margin:.22em 0 .26em}
+  .lede{font-size:16.5px;margin-bottom:1.15em}
+  .lede-more{display:none}
+  .hero .cta-row{gap:10px}
+  .hero .cta-row .btn{min-height:48px}
   .hero-note{margin-top:1.1em;font-size:13.5px}
   .hf.streak{width:var(--mw,80px);height:calc(var(--mw,80px) * .14)}
-  .tilt{bottom:12px;font-size:13px;min-height:34px}
   .section h2{font-size:clamp(36px,10.4vw,46px)}
   .about-copy{text-align:center}
   .about .body p{margin-inline:auto}
@@ -428,6 +445,17 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
   .foot-grid{gap:34px}
   .foot-base{flex-direction:column;gap:6px}
   .lb-art{padding:16px}
+}
+@media (max-width:699px) and (max-height:620px){
+  .hero-inner{padding-top:64px;gap:14px}
+  .window{height:clamp(130px,25svh,300px)}
+  .hero h1{font-size:40px}
+  .lede{margin-bottom:.9em}
+}
+@media (max-width:359px){
+  .kicker{font-size:10.5px;letter-spacing:.12em}
+  .hero h1{font-size:36px}
+  .lede{font-size:15.5px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -505,7 +533,7 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
     <div class="hero-copy">
       <p class="kicker rv d1">Shai Davenport <span aria-hidden="true">&middot;</span> Corpus Christi, Texas</p>
       <h1 class="rv d2"><span>Crafts by</span> <span>the Bunny</span></h1>
-      <p class="lede rv d3">Prints of one-of-a-kind mixed-media paintings, made by Shai Davenport in Corpus Christi. Plus hand-beaded sun catchers that throw her colors around the room.</p>
+      <p class="lede rv d3">Prints of one-of-a-kind mixed-media paintings, made by Shai Davenport in Corpus Christi.<span class="lede-more"> Plus hand-beaded sun catchers that throw her colors around the room.</span></p>
       <div class="cta-row rv d4">
         <a class="btn btn-primary" href="#prints">Shop prints</a>
         <a class="btn btn-ghost" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Message Shai</a>
@@ -519,7 +547,6 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
         <canvas id="glass" aria-hidden="true"></canvas>
         <div class="sheen" aria-hidden="true"></div>
       </div>
-      <button class="tilt" id="tilt" type="button" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="2.5" width="8" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" transform="rotate(-14 10 10)"/><path d="M2.5 12.5a8 8 0 0 0 3 4M17.5 7.5a8 8 0 0 0-3-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Tilt to move the crystals</button>
     </figure>
   </div>
 </section>
@@ -704,12 +731,9 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
 <!-- HOW PRINTS WORK -->
 <section class="section how scene" id="how" data-scene="paper" data-flecks aria-labelledby="how-h">
   <div class="wrap how-grid">
-    <div class="how-a rv">
-      <div>
-        <p class="eyebrow">How prints work</p>
-        <h2 id="how-h">Made to last, priced by size.</h2>
-      </div>
-      <img class="how-photo" src="../art/prints-held-800.jpg" width="800" height="800" alt="A hand holding two giclee prints of The Biggest Hearts Carry the Heaviest Burdens with white paper borders." loading="lazy" decoding="async">
+    <div class="how-head rv">
+      <p class="eyebrow">How prints work</p>
+      <h2 id="how-h">Made to last, priced by size.</h2>
     </div>
     <ol class="facts rv" style="--d:.08s">
       <li><span class="n">1</span><div><strong>Giclee prints</strong><span>Printed from Shai's paintings with pigment inks.</span></div></li>
@@ -717,21 +741,37 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
       <li><span class="n">3</span><div><strong>Priced by size</strong><span>Sizes follow each painting's shape, so most pieces start at 8 x 10.</span></div></li>
       <li><span class="n">4</span><div><strong>Made to order</strong><span>Tell Shai the piece and the size you want. Plus shipping.</span></div></li>
     </ol>
-    <div class="prices rv" style="--d:.16s">
+    <img class="how-photo rv" src="../art/prints-held-800.jpg" width="800" height="800" alt="A hand holding two giclee prints of The Biggest Hearts Carry the Heaviest Burdens with white paper borders." loading="lazy" decoding="async">
+    <div class="chart rv" style="--d:.12s">
       <h3>A few sizes from the price list</h3>
-      <table>
-        <caption class="sr">Print sizes in inches and prices</caption>
+      <table id="price-table">
+        <caption class="sr">Print sizes in inches and prices. Select a size to see it drawn to scale.</caption>
+        <thead><tr><th scope="col">Size (in)</th><th scope="col">Price</th></tr></thead>
         <tbody>
-          <tr><th scope="row">5 x 7</th><td>$14</td></tr>
-          <tr><th scope="row">8 x 10</th><td>$27</td></tr>
-          <tr><th scope="row">11 x 14</th><td>$51</td></tr>
-          <tr><th scope="row">16 x 20</th><td>$90</td></tr>
-          <tr><th scope="row">24 x 36</th><td>$238</td></tr>
-          <tr><th scope="row">40 x 60 <span>largest</span></th><td>$660</td></tr>
+            <tr data-size="5x7" tabindex="0"><th scope="row">5 x 7</th><td>$14</td></tr>
+            <tr data-size="8x10" tabindex="0"><th scope="row">8 x 10</th><td>$27</td></tr>
+            <tr data-size="11x14" tabindex="0"><th scope="row">11 x 14</th><td>$51</td></tr>
+            <tr data-size="16x20" tabindex="0"><th scope="row">16 x 20</th><td>$90</td></tr>
+            <tr data-size="24x36" tabindex="0"><th scope="row">24 x 36</th><td>$238</td></tr>
+            <tr data-size="40x60" tabindex="0"><th scope="row">40 x 60 <span>largest</span></th><td>$660</td></tr>
         </tbody>
       </table>
       <p class="note">Plus shipping. More sizes in between, just ask.</p>
       <a class="btn btn-ghost" href="https://ig.me/m/craftsbythebunny" target="_blank" rel="noopener">Ask about a size</a>
+      <figure class="ladder">
+        <svg viewBox="0 0 412 612" id="ladder" aria-hidden="true">
+          <rect data-size="40x60" x="4" y="8" width="400" height="600"/>
+          <rect data-size="24x36" x="4" y="248" width="240" height="360"/>
+          <rect data-size="16x20" x="4" y="408" width="160" height="200"/>
+          <rect data-size="11x14" x="4" y="468" width="110" height="140"/>
+          <rect data-size="8x10" x="4" y="508" width="80" height="100"/>
+          <rect data-size="5x7" x="4" y="538" width="50" height="70"/>
+          <text x="394" y="38" text-anchor="end">40 x 60</text>
+          <text x="234" y="278" text-anchor="end">24 x 36</text>
+          <text x="154" y="438" text-anchor="end">16 x 20</text>
+        </svg>
+        <figcaption id="ladder-cap" aria-live="polite"></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -1138,6 +1178,22 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
   });
   $('see-all').addEventListener('click', function(){ openLB('paint', 0, this); });
 
+  /* ---------- size chart: pick a size, see it drawn to scale ---------- */
+  var sizeRows = [].slice.call(document.querySelectorAll('#price-table tbody tr')), sizeRects = [].slice.call(document.querySelectorAll('#ladder rect'));
+  function markSize(size){
+    var row;
+    sizeRows.forEach(function(r){ var on = r.dataset.size === size; r.classList.toggle('on', on); if (on) row = r; });
+    sizeRects.forEach(function(r){ r.classList.toggle('on', r.dataset.size === size); });
+    if (row) $('ladder-cap').innerHTML = '<b>' + row.querySelector('th').firstChild.textContent.trim() + ' in</b> &middot; ' + row.querySelector('td').textContent + ' &middot; drawn to scale';
+  }
+  sizeRows.forEach(function(r){
+    r.addEventListener('mouseenter', function(){ markSize(r.dataset.size); });
+    r.addEventListener('click', function(){ markSize(r.dataset.size); });
+    r.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); markSize(r.dataset.size); } });
+  });
+  sizeRects.forEach(function(r){ r.addEventListener('click', function(){ markSize(r.dataset.size); }); });
+  markSize('11x14');
+
   /* ---------- demo form ---------- */
   var form = $('contact-form'), st = $('form-status');
   form.addEventListener('submit', function(e){
@@ -1414,42 +1470,6 @@ async function init(){
   /* pointer parallax + touch drag */
   const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
   let spinVel = 0, dragX = null;
-
-  /* phone tilt (gyroscope): the strands swing to stay hanging toward the ground */
-  const tilt = { z: 0, vz: 0, tz: 0, x: 0, vx: 0, tx: 0, on: false };
-  const tiltBtn = document.getElementById('tilt');
-  const coarse = matchMedia('(pointer: coarse)').matches;
-  let pitch0 = null;
-  function onOrient(e){
-    if (e.gamma == null || e.beta == null) return;
-    const ang = (screen.orientation && typeof screen.orientation.angle === 'number') ? screen.orientation.angle : (window.orientation || 0);
-    if (ang % 180 !== 0) { tilt.tz = 0; tilt.tx = 0; return; }
-    const flip = ang === 180 ? -1 : 1;
-    const roll = Math.max(-40, Math.min(40, e.gamma * flip));
-    if (pitch0 === null) pitch0 = e.beta;
-    pitch0 += (e.beta - pitch0) * 0.01;
-    const pitch = Math.max(-25, Math.min(25, (e.beta - pitch0) * flip));
-    tilt.tz = Math.max(-0.17, Math.min(0.17, THREE.MathUtils.degToRad(roll) * 0.5));
-    tilt.tx = Math.max(-0.18, Math.min(0.18, THREE.MathUtils.degToRad(pitch) * 0.5));
-    ptr.tx = roll / 40; ptr.ty = -pitch / 40;
-    if (!tilt.on) { tilt.on = true; if (tiltBtn) tiltBtn.classList.add('gone'); }
-  }
-  const listenTilt = () => addEventListener('deviceorientation', onOrient);
-  if (coarse && !reduce && 'DeviceOrientationEvent' in window) {
-    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-      /* iPhone: Safari only allows motion access after a tap, so offer one */
-      if (tiltBtn) {
-        tiltBtn.hidden = false;
-        tiltBtn.addEventListener('click', () => {
-          DeviceOrientationEvent.requestPermission()
-            .then((r) => { if (r === 'granted') listenTilt(); tiltBtn.classList.add('gone'); })
-            .catch(() => tiltBtn.classList.add('gone'));
-        });
-      }
-    } else {
-      listenTilt();
-    }
-  }
   hero.addEventListener('pointermove', (e) => {
     if (e.pointerType === 'mouse') { ptr.tx = (e.clientX / innerWidth) * 2 - 1; ptr.ty = (e.clientY / innerHeight) * 2 - 1; }
   });
@@ -1475,12 +1495,10 @@ async function init(){
     camera.position.y = -ptr.y * 0.22;
     camera.lookAt(0, 0, 0);
     spinVel *= Math.pow(0.12, dt);
-    tilt.vz += (tilt.tz - tilt.z) * 34 * dt; tilt.vz *= Math.pow(0.08, dt); tilt.z += tilt.vz * dt;
-    tilt.vx += (tilt.tx - tilt.x) * 30 * dt; tilt.vx *= Math.pow(0.08, dt); tilt.x += tilt.vx * dt;
     pendants.forEach((p, i) => {
-      const d = p.def, lag = 1 - i * 0.12;
-      p.pivot.rotation.z = p.amp * Math.sin(t * d.w + d.ph) - ptr.x * 0.012 + tilt.z * lag;
-      p.pivot.rotation.x = p.amp * 0.6 * Math.sin(t * d.w * 0.83 + d.ph * 1.7) + tilt.x * lag;
+      const d = p.def;
+      p.pivot.rotation.z = p.amp * Math.sin(t * d.w + d.ph) - ptr.x * 0.012;
+      p.pivot.rotation.x = p.amp * 0.6 * Math.sin(t * d.w * 0.83 + d.ph * 1.7);
       p.spin += (0.16 + i * 0.03 + spinVel) * dt;
       p.hanger.rotation.y = p.spin + 0.7 * Math.sin(t * 0.27 + d.ph) + ptr.x * 0.5;
     });
