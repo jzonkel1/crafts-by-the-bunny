@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Crafts by the Bunny | Homepage Draft</title>
+<title>Crafts by the Bunny | Hero Idea: Wide Window</title>
 <meta name="description" content="Giclee prints of one-of-a-kind mixed-media paintings and hand-beaded sun catchers by Shai Davenport, Corpus Christi, Texas.">
 <meta name="theme-color" content="#f0e4cf">
 <link rel="icon" href="../art/logo-150.jpg">
@@ -462,6 +462,20 @@ html.anim .go .ln{animation:draw var(--dur,1.5s) cubic-bezier(.55,.08,.25,1) var
   html{scroll-behavior:auto}
   .js .rv{opacity:1;transform:none;transition:none}
   .art-frame,.art-frame:hover,.btn:hover{transform:none}
+}
+
+/* ===== hero idea: wide window (phones only) ===== */
+@media (max-width:699px){
+  .hero-inner{padding-top:68px;gap:16px}
+  .window{width:100%;max-width:520px;height:clamp(170px, calc(100svh - 422px), 470px);aspect-ratio:auto}
+  .window::before{inset:-9px -9px 0 -9px}
+  .window::after{left:-16px;right:-16px}
+}
+@media (max-width:699px) and (max-height:620px){
+  .window{height:clamp(150px, calc(100svh - 405px), 300px)}
+}
+@media (max-width:359px){
+  .window{height:clamp(150px, calc(100svh - 400px), 300px)}
 }
 </style>
 <script type="importmap">
@@ -1242,7 +1256,7 @@ const STRANDS = {
   }
 };
 
-const DEFS = small ? [
+const DEFS = (small && win.clientWidth / Math.max(1, win.clientHeight) < 1.05) ? [
   { kind: 'teardrop', beads: 'rainbow', x: -0.19, y: -0.1, z: 0.4, size: 0.64, ph: 0.6, w: 0.62 },
   { kind: 'pyramid', beads: 'green', x: 0.23, y: 0.06, z: 0.0, size: 0.82, ph: 3.2, w: 0.71 }
 ] : [
